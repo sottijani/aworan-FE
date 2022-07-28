@@ -1,13 +1,46 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+} */
+/*
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+	auth form css appllies here
+*/
+@layer base {
+	label,
+	input {
+		@apply block my-2;
+	}
+	input,
+	select {
+		@apply rounded-md border-collapse border-2 border-gray-200 p-2.5 w-full;
+	}
+
+	form div p.error {
+		@apply text-red-500;
+	}
+}
+
+@layer components {
+	.form-container {
+		@apply px-10 lg:sm:px-0;
+	}
+	.auth-form {
+		@apply mx-auto shadow-xl border border-gray-100 lg:w-1/4 md:w-3/5 mt-56 p-5 rounded-lg;
+	}
+	.auth-button {
+		@apply bg-blue-600 text-white w-full my-2 p-3 rounded-md border-collapse;
+	}
 }
