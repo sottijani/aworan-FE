@@ -2,15 +2,21 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import ShowPassword from "../components/ShowPassword";
 import Vector from "../assets/Vector.svg";
+import AuthService from "../services";
 
 export default function Signin() {
 	const [showPassword, setShowPassword] = useState(false);
+	const service = new AuthService();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ mode: "onChange" });
-	const submit = (data) => console.log("working", data);
+	const submit = async (data) => {
+		const res = await service.signIn(data);
+		console.log(res);
+	};
 	return (
 		<div className="form-container">
 			<form className="auth-form" onSubmit={handleSubmit(submit)}>

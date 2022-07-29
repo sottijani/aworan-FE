@@ -2,17 +2,22 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Vector from "../assets/Vector.svg";
 import ShowPassword from "../components/ShowPassword";
+import AuthService from "../services";
 export default function Signup() {
 	const [showPassword, setShowPassword] = useState(false);
+	const service = new AuthService();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ mode: "onChange" });
-	const submit = (data) => console.log("working", data);
+	const signUp = async (data) => {
+		const d = await service.signUp(data).catch((err) => console.log(err));
+		console.log(d);
+	};
 	return (
 		<div className="form-container">
-			<form onSubmit={handleSubmit(submit)} className="auth-form">
+			<form onSubmit={handleSubmit(signUp)} className="auth-form">
 				<div>
 					<label>First Name</label>
 					<input {...register("first_name", { required: true })} />

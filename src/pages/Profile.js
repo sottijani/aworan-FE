@@ -1,12 +1,28 @@
 import Sidebar from "../components/Sidebar";
 import { ReactComponent as Account } from "../assets/account.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AuthService from "../services";
 
 export default function Profile() {
+	const service = new AuthService();
 	const [showProfile, setSowProfile] = useState(true);
 	const view = () => setSowProfile(!showProfile);
 	const headerCss =
 		"py-10 mr-10 border-0 border-2 border-transparent hover:border-b-2 hover:text-blue-500 border-collapse ";
+
+	const getProfile = async () => {
+		const res = await service.profile();
+		console.log(res);
+	};
+
+	const updateProfile = async (data) => {
+		const res = await service.updateProfile(data);
+		console.log(res);
+	};
+
+	useEffect(() => {
+		getProfile();
+	});
 
 	const ProfileLayout = ({ title, caption, component }) => (
 		<>
@@ -98,7 +114,10 @@ export default function Profile() {
 											component={<InputForm labe1="Phone Number" label2="Twitter" />}
 										/>
 
-										<button className="p-5 block rounded-lg my-11 mx-auto bg-blue-500 text-white ">
+										<button
+											type={updateProfile}
+											className="p-5 block rounded-lg my-11 mx-auto bg-blue-500 text-white "
+										>
 											Save Changes
 										</button>
 									</form>

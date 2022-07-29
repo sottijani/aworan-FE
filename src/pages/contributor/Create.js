@@ -1,10 +1,12 @@
 import Sidebar from "../../components/Sidebar";
 import uploadIcon from "../../assets/upload.svg";
 import { useState } from "react";
+import Contributor from "../../services/contributor.service";
 export default function Create() {
 	const [preview, setPreview] = useState(false);
 	// const show = useMemo(() => first, [second])
 	const [upload, setUpload] = useState("");
+	const service = new Contributor();
 
 	const makeUpload = (e) => {
 		const image = URL.createObjectURL(e.target.files[0]);
@@ -20,6 +22,11 @@ export default function Create() {
 			</div>
 		</>
 	);
+
+	const uploadImage = async (data) => {
+		const res = await service.upload(data);
+		console.log(res);
+	};
 	return (
 		<>
 			<Sidebar
@@ -112,7 +119,12 @@ export default function Create() {
 						</div>
 						<div className="py-16  mt-16 text-right w-full">
 							<button className="p-5 border shadow mr-5 rounded w-28 text-gray-500">Back</button>
-							<button className="p-5 bg-blue-500 shadow-md rounded w-28 text-white">Proceed</button>
+							<button
+								className="p-5 bg-blue-500 shadow-md rounded w-28 text-white"
+								onClick={uploadImage}
+							>
+								Proceed
+							</button>
 						</div>
 					</>
 				}
