@@ -30,42 +30,42 @@ class AuthService {
 	}
 
 	async signOut() {
-		const response = this.http("signout").get(this.header);
+		const response = await this.http("signout").get(this.header);
 		return response;
 	}
 
 	async forgotPassword() {
-		const response = this.http("forgot/password").get(this.header);
+		const response = await this.http("forgot/password").get();
 		return response;
 	}
 
 	async users() {
-		const response = this.http(`all/users`).get(this.header);
+		const response = await this.http(`all/users`).get(this.header);
 		return response;
 	}
 
 	async user(id = "") {
-		const response = this.http(`user/${id}`).get(this.header);
+		const response = await this.http(`user/${id}`).get(this.header);
 		return response;
 	}
 
 	async profile(id = "") {
-		const response = this.http(`profile`).get(this.header);
+		const response = await this.http(`profile`).get(this.header);
 		return response;
 	}
 
 	async updateProfile(data = {}) {
-		const response = this.http("update/profile").put(data, this.header);
+		const response = await this.http("update/profile").put(data, this.header);
 		return response;
 	}
 
 	async updatePassword(data = {}) {
-		const response = this.http("change/password").put(data, this.header);
+		const response = await this.http("change/password").put(data, this.header);
 		return response;
 	}
 
 	async resetPassword(data = {}) {
-		const response = this.http("reset/password").put(data);
+		const response = await this.http("reset/password").put(data);
 		return response;
 	}
 

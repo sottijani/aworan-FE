@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ShowPassword from "../components/ShowPassword";
 import Vector from "../assets/Vector.svg";
 import AuthService from "../services";
+import { useNavigate } from "react-router-dom";
 
 export default function Signin() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [message, setMessage] = useState("");
+	const history = useNavigate();
 	const service = new AuthService();
 
 	const {
@@ -15,8 +18,18 @@ export default function Signin() {
 	} = useForm({ mode: "onChange" });
 	const submit = async (data) => {
 		const res = await service.signIn(data);
+		if (res.token) {
+			localStorage.setItem("token", res.token);
+			history("/profile");
+		}
+		setMessage(res.message);
 		console.log(res);
 	};
+
+	useEffect(() => {
+		localStorage.removeItem("token");
+	}, []);
+
 	return (
 		<div className="form-container">
 			<form className="auth-form" onSubmit={handleSubmit(submit)}>
@@ -46,6 +59,11 @@ export default function Signin() {
 					/>
 				</div>
 				<button className="auth-button">submit</button>
+				{message && (
+					<p className="rounded text-white capitalize bg-red-500 my-2 py-5 text-center">
+						{message}
+					</p>
+				)}
 			</form>
 		</div>
 	);

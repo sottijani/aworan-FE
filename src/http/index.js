@@ -21,10 +21,10 @@ class Http {
 
 	async get(header = {}) {
 		try {
-			const { data: res } = Object.keys(header).length
-				? axios.get(this.url, header)
-				: axios.get(this.url);
-			return res;
+			const { data, status } = Object.keys(header).length
+				? await axios.get(this.url, header)
+				: await axios.get(this.url);
+			return { data, status };
 		} catch (error) {
 			const {
 				response: { data: res },

@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar.1";
 import { ReactComponent as Account } from "../assets/account.svg";
 import { useEffect, useState } from "react";
 import AuthService from "../services";
@@ -6,23 +6,29 @@ import AuthService from "../services";
 export default function Profile() {
 	const service = new AuthService();
 	const [showProfile, setSowProfile] = useState(true);
+	const [profile, setProfile] = useState({});
 	const view = () => setSowProfile(!showProfile);
 	const headerCss =
 		"py-10 mr-10 border-0 border-2 border-transparent hover:border-b-2 hover:text-blue-500 border-collapse ";
 
 	const getProfile = async () => {
 		const res = await service.profile();
-		console.log(res);
+		if (res.status) {
+			const {
+				data: { data: result },
+			} = res;
+			setProfile(result);
+		} else console.log(res.message);
 	};
 
 	const updateProfile = async (data) => {
 		const res = await service.updateProfile(data);
-		console.log(res);
+		console.log(res.data);
 	};
 
 	useEffect(() => {
 		getProfile();
-	});
+	}, []);
 
 	const ProfileLayout = ({ title, caption, component }) => (
 		<>
@@ -38,16 +44,23 @@ export default function Profile() {
 		</>
 	);
 
-	const InputForm = ({ labe1, label2, type = "text", type1 = "text" }) => (
+	const InputForm = ({
+		labe1,
+		label2,
+		type = "text",
+		type1 = "text",
+		defaultVal = "",
+		defaultVal2,
+	}) => (
 		<>
 			<div className="flex justify-center">
 				<div className="w-full pr-5">
 					<label className=" text-gray-400">{labe1}</label>
-					<input type={type1} />
+					<input type={type1} defaultValue={defaultVal} />
 				</div>
 				<div className="w-full pl-3">
 					<label className=" text-gray-400">{label2}</label>
-					<input type={type} />
+					<input type={type} defaultValue={defaultVal2} />
 				</div>
 			</div>
 		</>
@@ -99,19 +112,39 @@ export default function Profile() {
 										<ProfileLayout
 											title="Full Name"
 											caption="cutomize your account name"
-											component={<InputForm labe1="First Name" label2="Last Name" />}
+											component={
+												<InputForm
+													labe1="First Name"
+													label2="Last Name"
+													defaultVal={profile.first_name || ""}
+													defaultVal2={profile.last_name || ""}
+												/>
+											}
 										/>
 										<ProfileLayout
 											title="Email Address Name"
 											caption="Change your email address"
 											component={
-												<InputForm labe1="Email Address" label2="Instagram" type1="email" />
+												<InputForm
+													labe1="Email Address"
+													label2="Instagram"
+													type1="email"
+													defaultVal={profile.email || ""}
+													defaultVal2={profile.instagram || ""}
+												/>
 											}
 										/>
 										<ProfileLayout
 											title="Phone Number"
 											caption="Change your phone number"
-											component={<InputForm labe1="Phone Number" label2="Twitter" />}
+											component={
+												<InputForm
+													labe1="Phone Number"
+													label2="Twitter"
+													defaultVal={profile.phone || ""}
+													defaultVal2={profile.twitter || ""}
+												/>
+											}
 										/>
 
 										<button

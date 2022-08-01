@@ -1,7 +1,10 @@
 import AuthService from ".";
 
 class Contributor extends AuthService {
-	constructor() {}
+	// eslint-disable-next-line no-useless-constructor
+	constructor() {
+		super();
+	}
 
 	async upload(data = {}) {
 		const response = await this.http("upload").post(data);

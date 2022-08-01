@@ -1,17 +1,15 @@
 import Vector from "../assets/Vector.svg";
 import transaction from "../assets/transaction.svg";
-import { ReactComponent as Card } from "../assets/card.svg";
 import card from "../assets/card.svg";
 import logout from "../assets/logout.svg";
 import settings from "../assets/settings.svg";
 import analytics from "../assets/analytics.svg";
 import create from "../assets/create.svg";
-import { Link, useNavigate } from "react-router-dom";
-export default function Sidebar({ title, component, key }) {
-	const history = useNavigate();
+import { Link } from "react-router-dom";
 
-	const LinkWIthIcon = ({ icon, title, link, func }) => (
-		<Link to={link} key={key}>
+export default function Sidebar({ title, component }) {
+	const LinkWIthIcon = ({ icon, title, link }) => (
+		<Link to={link}>
 			<div className="mb-8 p-5 text-black shadow rounded-xl hover:bg-blue-500 hover:text-gray-200 cursor-pointer">
 				<div className="flex items-center w-full text-lg">
 					<span className="mr-5">
@@ -22,7 +20,6 @@ export default function Sidebar({ title, component, key }) {
 			</div>
 		</Link>
 	);
-
 	return (
 		<div className="bg-gray-100 flex overflow-auto ">
 			<div className="py-11 h-screen bg-white  w-1/5 flex flex-col  items-center sticky top-0 ">
@@ -43,7 +40,7 @@ export default function Sidebar({ title, component, key }) {
 					<LinkWIthIcon icon={transaction} title="History" link="/history" />
 					<LinkWIthIcon icon={card} title="Payment" link="/payment" />
 					<LinkWIthIcon icon={settings} title="Settings" link="/profile" />
-					<LinkWIthIcon icon={logout} title="Logout" link="/sigin" />
+					<LinkWIthIcon icon={logout} title="Logout" link="/signin" />
 				</div>
 			</div>
 			<div className="w-4/5 p-10">
