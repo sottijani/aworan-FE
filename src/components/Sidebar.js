@@ -8,8 +8,6 @@ import analytics from "../assets/analytics.svg";
 import create from "../assets/create.svg";
 import { Link, useNavigate } from "react-router-dom";
 export default function Sidebar({ title, component, key }) {
-	const history = useNavigate();
-
 	const LinkWIthIcon = ({ icon, title, link, func }) => (
 		<Link to={link} key={key}>
 			<div className="mb-8 p-5 text-black shadow rounded-xl hover:bg-blue-500 hover:text-gray-200 cursor-pointer">
@@ -38,10 +36,10 @@ export default function Sidebar({ title, component, key }) {
 					<p className="text-lg">Jonathansmith@gmail.com</p>
 				</div>
 				<div className="w-4/6">
-					<LinkWIthIcon icon={analytics} title="Analytics" link="/" />
+					<LinkWIthIcon icon={analytics} title="Dashboard" link="/dashboard" />
 					<LinkWIthIcon icon={create} title="Create" link="/upload" />
 					<LinkWIthIcon icon={transaction} title="History" link="/history" />
-					<LinkWIthIcon icon={card} title="Payment" link="/payment" />
+					<LinkWIthIcon icon={card} title="Earnings" link="/payment" />
 					<LinkWIthIcon icon={settings} title="Settings" link="/profile" />
 					<LinkWIthIcon icon={logout} title="Logout" link="/sigin" />
 				</div>

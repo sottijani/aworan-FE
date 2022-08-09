@@ -1,5 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Create from "../pages/contributor/Create";
+import Dasboard from "../pages/contributor/Dashboard";
 import History from "../pages/contributor/History";
 import Payment from "../pages/contributor/Payment";
 import Profile from "../pages/Profile";
@@ -18,7 +21,9 @@ function App() {
 					<Route path="/history" element={<History />} key="history" />
 					<Route path="/profile" element={<Profile />} key="profile" />
 					<Route path="/payment" element={<Payment />} key="paymemt" />
+					<Route path="/dashboard" element={<Dasboard />} key="dashboard" />
 				</Routes>
+				<ToastContainer hideProgressBar closeOnClick closeButton={false} autoClose={5000} />
 			</div>
 		</BrowserRouter>
 	);

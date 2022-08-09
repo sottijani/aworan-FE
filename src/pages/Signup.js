@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import Vector from "../assets/Vector.svg";
 import ShowPassword from "../components/ShowPassword";
 import AuthService from "../services";
@@ -89,6 +90,12 @@ export default function Signup() {
 					/>
 				</div>
 				<button className="auth-button">submit</button>
+				<p className="text-center py-3">
+					Already have an account?{" "}
+					<Link to="/signin" className="text-blue-500">
+						Sign in
+					</Link>
+				</p>
 			</form>
 		</div>
 	);
