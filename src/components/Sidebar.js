@@ -41,7 +41,7 @@ export default function Sidebar({ title, component, key }) {
 					<LinkWIthIcon icon={transaction} title="History" link="/history" />
 					<LinkWIthIcon icon={card} title="Earnings" link="/payment" />
 					<LinkWIthIcon icon={settings} title="Settings" link="/profile" />
-					<LinkWIthIcon icon={logout} title="Logout" link="/sigin" />
+					<LinkWIthIcon icon={logout} title="Logout" link="/signin" />
 				</div>
 			</div>
 			<div className="w-4/5 p-10">

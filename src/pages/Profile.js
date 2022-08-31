@@ -21,6 +21,7 @@ export default function Profile() {
 	const view = (v) => () => setSowProfile(v);
 	const getProfile = async () => {
 		const res = await service.profile();
+		console.log(res);
 		if (res.status) {
 			const {
 				data: { data: result },

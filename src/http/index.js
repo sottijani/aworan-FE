@@ -51,7 +51,7 @@ class Http {
 		try {
 			const { data: res } = !Object.keys(header).length
 				? await axios.delete(this.url)
-				: await axios.put(this.url, header);
+				: await axios.put(this.url, {}, header);
 			return res;
 		} catch (error) {
 			const {

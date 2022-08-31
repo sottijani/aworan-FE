@@ -18,12 +18,13 @@ export default function Signin() {
 	} = useForm({ mode: "onChange" });
 	const submit = async (data) => {
 		const res = await service.signIn(data);
+		console.log(res);
 		if (res.token) {
 			localStorage.setItem("token", res.token);
 			history("/profile");
 		}
 		setMessage(res.message);
-		console.log(res);
+		// console.log(res);
 	};
 
 	useEffect(() => {

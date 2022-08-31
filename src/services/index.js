@@ -21,6 +21,7 @@ class AuthService {
 
 	async signIn(data = {}) {
 		const response = await this.http("login").post(data);
+		// cons
 		return response;
 	}
 

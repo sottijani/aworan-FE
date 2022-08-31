@@ -5,6 +5,7 @@ import Create from "../pages/contributor/Create";
 import Dasboard from "../pages/contributor/Dashboard";
 import History from "../pages/contributor/History";
 import Payment from "../pages/contributor/Payment";
+import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
@@ -14,7 +15,7 @@ function App() {
 		<BrowserRouter>
 			<div>
 				<Routes>
-					<Route path="/" element={<Signup />} key="home" />
+					<Route path="/" element={<Home />} key="home" />
 					<Route path="/signup" element={<Signup />} key="signup" />
 					<Route path="/signin" element={<Signin />} key="signin" />
 					<Route path="/upload" element={<Create />} key="upload" />

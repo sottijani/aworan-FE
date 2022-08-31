@@ -7,21 +7,26 @@ class Contributor extends AuthService {
 	}
 
 	async upload(data = {}) {
-		const response = await this.http("upload").post(data);
+		const response = await this.http("upload").post(data, this.header);
 		return response;
 	}
 	async uploads() {
-		const response = await this.http("uploads").get();
+		const response = await this.http("uploads/").get(this.header);
 		return response;
 	}
 
 	async getUpload(id) {
-		const response = await this.http(`upload/${id}`).get();
+		const response = await this.http(`upload/${id}`).get(this.header);
 		return response;
 	}
 
 	async download() {
-		const response = await this.http(`download`).get();
+		const response = await this.http(`download`).get(this.header);
+		return response;
+	}
+
+	async getAnalytics() {
+		const response = await this.http(`analytics`).get(this.header);
 		return response;
 	}
 
