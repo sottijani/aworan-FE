@@ -23,12 +23,13 @@ const Home = () => {
 			{images.length
 				? images.map((img) => (
 						<>
-							<div className="hover:shadow-lg  rounded-lg overflow-hidden mb-10">
+							<div className="shadow-lg  rounded-lg overflow-hidden mb-10">
 								<img
 									src={`${cloudinaryUrl}${img.img_url}`}
 									alt={img.title}
-									className="w-full object-cover hover:scale-105 duration-105 cursor-pointer transition-transform"
+									className="w-full h-full object-cover hover:scale-x-105 duration-105 cursor-pointer transition-transform"
 								/>
+								<button className="p-4 bg-blue-500 text-white">Download</button>
 							</div>
 						</>
 				  ))

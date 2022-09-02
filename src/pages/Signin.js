@@ -4,6 +4,8 @@ import ShowPassword from "../components/ShowPassword";
 import Vector from "../assets/Vector.svg";
 import AuthService from "../services";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 
 export default function Signin() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +13,7 @@ export default function Signin() {
 	const history = useNavigate();
 	const service = new AuthService();
 
+	const { userProfile } = useContext(UserContext);
 	const {
 		register,
 		handleSubmit,
@@ -21,10 +24,26 @@ export default function Signin() {
 		console.log(res);
 		if (res.token) {
 			localStorage.setItem("token", res.token);
-			history("/profile");
+
+			setTimeout(() => {
+				getProfile();
+				// history("/profile");
+			}, 2000);
 		}
 		setMessage(res.message);
 		// console.log(res);
+	};
+
+	const getProfile = async () => {
+		const res = await service.profile();
+		console.log(res);
+		if (res.status) {
+			const {
+				data: { data: result },
+			} = res;
+			console.log(result);
+			userProfile(result);
+		} else console.log(res.message);
 	};
 
 	useEffect(() => {

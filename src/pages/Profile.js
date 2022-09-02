@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import AuthService from "../services";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import UserContext from "../context/UserContext.js";
 
 export default function Profile() {
 	const service = new AuthService();
 	const [showProfile, setSowProfile] = useState("profile");
-	const [profile, setProfile] = useState({});
+	// const [profile, setProfile] = useState({});
+	const { user: profile } = useContext(UserContext);
 	const [profileUpdates, setProfileUpdates] = useState(false);
 	const {
 		register,
@@ -19,16 +22,16 @@ export default function Profile() {
 		"py-10 mr-10 border-0 border-2 border-transparent hover:border-b-2 hover:text-blue-500 border-collapse ";
 
 	const view = (v) => () => setSowProfile(v);
-	const getProfile = async () => {
-		const res = await service.profile();
-		console.log(res);
-		if (res.status) {
-			const {
-				data: { data: result },
-			} = res;
-			setProfile(result);
-		} else console.log(res.message);
-	};
+	// const getProfile = async () => {
+	// 	const res = await service.profile();
+	// 	console.log(res);
+	// 	if (res.status) {
+	// 		const {
+	// 			data: { data: result },
+	// 		} = res;
+	// 		// setProfile(result);
+	// 	} else console.log(res.message);
+	// };
 
 	const updateProfile = async (data) => {
 		const res = await service.updateProfile(data);
@@ -36,9 +39,9 @@ export default function Profile() {
 		setProfileUpdates(!profileUpdates);
 	};
 
-	useEffect(() => {
-		getProfile();
-	}, [profileUpdates]);
+	// useEffect(() => {
+	// 	// getProfile();
+	// }, [profileUpdates]);
 
 	const ProfileLayout = ({ title, caption, component }) => (
 		<>
@@ -222,10 +225,27 @@ export default function Profile() {
 									<div>
 										<form onSubmit={handleSubmit(updateProfile)}>
 											<ProfileLayout
-												title="Change Password"
+												title="Current Password"
 												caption="change your password"
-												component={<InputForm labe1="Password" name1="password" />}
+												component={
+													<InputForm labe1="Current Password" name1="password1" type1="password" />
+												}
 											/>
+											<ProfileLayout
+												title="New Password"
+												caption="change your password"
+												component={
+													<InputForm labe1="New Password" name1="password2" type1="password" />
+												}
+											/>
+											<ProfileLayout
+												title="Confirm Password"
+												caption="change your password"
+												component={
+													<InputForm labe1="Confirm Password" name1="password" type1="password" />
+												}
+											/>
+											{/* {watch("password")} */}
 											<button
 												type="submit"
 												className="p-5 block rounded-lg my-5  bg-blue-500 text-white "
