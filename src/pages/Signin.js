@@ -27,7 +27,7 @@ export default function Signin() {
 
 			setTimeout(() => {
 				getProfile();
-				// history("/profile");
+				history("/profile");
 			}, 2000);
 		}
 		setMessage(res.message);

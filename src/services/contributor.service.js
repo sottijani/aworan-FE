@@ -20,8 +20,8 @@ class Contributor extends AuthService {
 		return response;
 	}
 
-	async download() {
-		const response = await this.http(`download`).get(this.header);
+	async download(url) {
+		const response = await this.http(`download?img_url=${url}`).get(this.header);
 		return response;
 	}
 

@@ -1,5 +1,10 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import fileDownload from "js-file-download";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import Modal from "../components/Modal";
+import UserContext from "../context/UserContext";
 import Contributor from "../services/contributor.service";
 
 const Home = () => {
@@ -8,6 +13,8 @@ const Home = () => {
 	const [currentImg, setCurrentImg] = useState("");
 	const [modal, setModal] = useState(false);
 	const cloudinaryUrl = "https://res.cloudinary.com/dd1zbrj8l/image/upload/v1660036816/";
+	const { user } = useContext(UserContext);
+	const navigate = useNavigate();
 
 	const getAllImages = async () => {
 		const savedData = sessionStorage.getItem("results");
@@ -27,6 +34,14 @@ const Home = () => {
 		console.log(img);
 		setCurrentImg(img);
 		setModal(true);
+	};
+
+	const download = (img, fileName) => async () => {
+		if (!user.id) navigate("/signup", { replace: true });
+		else
+			axios
+				.get(img, { responseType: "blob" })
+				.then((res) => fileDownload(res.data, fileName + ".jpg"));
 	};
 
 	const closeModal = () => {
@@ -54,11 +69,18 @@ const Home = () => {
 									className="w-full h-full object-cover hover:scale-x-105 duration-105 cursor-pointer transition-transform"
 								/>
 								<button
+									onClick={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+									className="p-4 bg-blue-500 text-white inline-block"
+									download
+								>
+									Download
+								</button>
+								{/* <button
 									onClick={showModal(`${cloudinaryUrl}${img.img_url}`)}
 									className="p-4 bg-blue-500 text-white"
 								>
 									View
-								</button>
+								</button> */}
 							</div>
 						</>
 				  ))

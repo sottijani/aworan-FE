@@ -1,12 +1,11 @@
 import Vector from "../assets/Vector.svg";
 import transaction from "../assets/transaction.svg";
-import { ReactComponent as Card } from "../assets/card.svg";
 import card from "../assets/card.svg";
 import logout from "../assets/logout.svg";
 import settings from "../assets/settings.svg";
 import analytics from "../assets/analytics.svg";
 import create from "../assets/create.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export default function Sidebar({ title, component, key }) {
 	const LinkWIthIcon = ({ icon, title, link, func }) => (
 		<Link to={link} key={key}>
@@ -42,6 +41,7 @@ export default function Sidebar({ title, component, key }) {
 					<LinkWIthIcon icon={card} title="Earnings" link="/payment" />
 					<LinkWIthIcon icon={settings} title="Settings" link="/profile" />
 					<LinkWIthIcon icon={logout} title="Logout" link="/signin" />
+					<LinkWIthIcon icon={logout} title="Home" link="/" />
 				</div>
 			</div>
 			<div className="w-4/5 p-10">

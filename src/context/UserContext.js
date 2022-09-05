@@ -1,15 +1,18 @@
 import { createContext, useEffect, useState } from "react";
-
 const UserContext = createContext(null);
 
 export const UserProvider = ({ container }) => {
 	const [user, setUser] = useState({});
 	const [updated, setUpdated] = useState(false);
-
 	const userProfile = (userProfile) => {
 		setUser(userProfile);
 		localStorage.setItem("profile", JSON.stringify(userProfile));
 		setUpdated(!updated);
+	};
+
+	const logout = () => {
+		localStorage.removeItem("profile");
+		localStorage.removeItem("token");
 	};
 
 	useEffect(() => {
@@ -17,7 +20,9 @@ export const UserProvider = ({ container }) => {
 		if (userDetail) setUser(JSON.parse(userDetail));
 	}, [updated]);
 
-	return <UserContext.Provider value={{ user, userProfile }}> {container} </UserContext.Provider>;
+	return (
+		<UserContext.Provider value={{ user, userProfile, logout }}> {container} </UserContext.Provider>
+	);
 };
 
 export default UserContext;

@@ -1,24 +1,31 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useContext, useEffect, useId, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Sidebar from "../../components/Sidebar";
+import UserContext from "../../context/UserContext";
 import Contributor from "../../services/contributor.service";
 
 export default function History() {
 	const tableHeading = ["Photo", "Title", "Status", "Category", "Date", ""];
 	const [history, setHistory] = useState([]);
 	const service = new Contributor();
-	const divRev = useRef();
+	const {
+		user: { uploads },
+	} = useContext(UserContext);
 	const cloudinaryUrl =
 		"https://res.cloudinary.com/dd1zbrj8l/image/upload/c_thumb,w_100,h_50,g_face/v1660036816/";
 	const id = useId();
 
 	const getAllUploads = async () => {
-		const {
-			data: { data: res, message: mess },
-		} = await service.getUpload("dkksk");
-		// toast(mess);
-		setHistory(res);
-		console.log(res);
+		if (uploads) setHistory(uploads);
+		else {
+			const {
+				data: { data: res, message: mess },
+			} = await service.getUpload("dkksk");
+			// toast(mess);
+			setHistory(res);
+			console.log(res);
+			console.log(mess);
+		}
 	};
 	useEffect(() => {
 		getAllUploads();

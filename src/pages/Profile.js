@@ -34,6 +34,10 @@ export default function Profile() {
 	// };
 
 	const updateProfile = async (data) => {
+		if (data.password && data.password !== data.confirm_password) {
+			toast("confirm password");
+			return;
+		}
 		const res = await service.updateProfile(data);
 		toast.info(res.message);
 		setProfileUpdates(!profileUpdates);
@@ -228,21 +232,29 @@ export default function Profile() {
 												title="Current Password"
 												caption="change your password"
 												component={
-													<InputForm labe1="Current Password" name1="password1" type1="password" />
+													<InputForm
+														labe1="Current Password"
+														name1="old_password"
+														type1="password"
+													/>
 												}
 											/>
 											<ProfileLayout
 												title="New Password"
 												caption="change your password"
 												component={
-													<InputForm labe1="New Password" name1="password2" type1="password" />
+													<InputForm labe1="New Password" name1="password" type1="password" />
 												}
 											/>
 											<ProfileLayout
 												title="Confirm Password"
 												caption="change your password"
 												component={
-													<InputForm labe1="Confirm Password" name1="password" type1="password" />
+													<InputForm
+														labe1="Confirm Password"
+														name1="confirm_password"
+														type1="password"
+													/>
 												}
 											/>
 											{/* {watch("password")} */}
