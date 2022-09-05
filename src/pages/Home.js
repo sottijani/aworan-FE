@@ -37,10 +37,16 @@ const Home = () => {
 	};
 
 	const download = (img, fileName) => async () => {
+		let headerAut = http.header;
 		if (!user.id) navigate("/signup", { replace: true });
 		else
 			axios
-				.get(img, { responseType: "blob" })
+				.get(img, {
+					responseType: "blob",
+					headers: {
+						"Authorization": `Bearer ${localStorage.getItem("token")}`,
+					},
+				})
 				.then((res) => fileDownload(res.data, fileName + ".jpg"));
 	};
 
