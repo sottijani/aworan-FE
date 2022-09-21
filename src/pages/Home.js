@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Modal from "../components/Modal";
+import Navbar from "../components/navbar";
 import UserContext from "../context/UserContext";
 import Contributor from "../services/contributor.service";
 
@@ -70,50 +71,53 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div
-			onClick={closeModal}
-			className="container mx-auto gap-5 sm:columns-1  md:columns-3 py-24 px-5 md:px-0"
-		>
-			{modal && <Modal img={currentImg} />}
+		<>
+			<Navbar />
+			<div
+				onClick={closeModal}
+				className="container mx-auto gap-5 sm:columns-1  md:columns-3 pb-24 px-5 md:px-0"
+			>
+				{modal && <Modal img={currentImg} />}
 
-			{images.length
-				? images.map((img) => (
-						<>
-							<div className="shadow-lg  overflow-hidden mb-5 relative show-prop-con ">
-								<img
-									src={`${cloudinaryUrl}${img.img_url}`}
-									alt={img.title}
-									className="w-full h-full object-cover"
-								/>
-								<div className="button-container justify-end top-0">
-									<Button
-										// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
-										cl="mr-5"
-										icon={<i class="fa-regular fa-heart"></i>}
+				{images.length
+					? images.map((img) => (
+							<>
+								<div className="shadow-lg  overflow-hidden mb-5 relative show-prop-con ">
+									<img
+										src={`${cloudinaryUrl}${img.img_url}`}
+										alt={img.title}
+										className="w-full h-full object-cover"
 									/>
-									<Button
-										// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
-										icon={<i class="fa-regular fa-plus"></i>}
-									/>
-								</div>
-								<div className="button-container justify-between bottom-0  ">
-									<button className="rounded-full overflow-hidden w-12 h-12">
-										<img
-											src={`${cloudinaryUrl}${img.img_url}`}
-											alt={img.title}
-											className="w-full h-full object-cover"
+									<div className="button-container justify-end top-0">
+										<Button
+											// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+											cl="mr-5"
+											icon={<i class="fa-regular fa-heart"></i>}
 										/>
-									</button>
-									<Button
-										clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
-										icon={<i class="fa-solid fa-arrow-down"></i>}
-									/>
+										<Button
+											// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+											icon={<i class="fa-regular fa-plus"></i>}
+										/>
+									</div>
+									<div className="button-container justify-between bottom-0  ">
+										<button className="rounded-full overflow-hidden w-12 h-12">
+											<img
+												src={`${cloudinaryUrl}${img.img_url}`}
+												alt={img.title}
+												className="w-full h-full object-cover"
+											/>
+										</button>
+										<Button
+											clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+											icon={<i class="fa-solid fa-arrow-down"></i>}
+										/>
+									</div>
 								</div>
-							</div>
-						</>
-				  ))
-				: ""}
-		</div>
+							</>
+					  ))
+					: ""}
+			</div>
+		</>
 	);
 };
 
