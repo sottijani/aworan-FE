@@ -78,7 +78,7 @@ const Home = () => {
 			<Navbar />
 			<div className="corousel mb-5 relative" ref={bgRef}>
 				<div className="container px-28 flex items-center flex-col">
-					<p className="text-white text-3xl">One Platform, a thousand way to be seen</p>
+					<p className="text-white text-3xl">One Platform, a thousand way to be seen!</p>
 					<form className="flex items-center w-full my-10">
 						<input type="text" className="p-5 w-full rounded-l-3xl rounded-r-none" />
 						<button className="px-12 py-6 text-white h-full rounded-l-none rounded-r-3xl bg-blue-500">
