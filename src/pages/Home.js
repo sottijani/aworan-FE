@@ -1,6 +1,6 @@
 import axios from "axios";
 import fileDownload from "js-file-download";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Modal from "../components/Modal";
@@ -20,6 +20,7 @@ const Button = ({ clickEvent, icon, cl }) => (
 );
 
 const Home = () => {
+	const bgRef = useRef();
 	const http = new Contributor();
 	const [images, setImages] = useState([]);
 	const [currentImg, setCurrentImg] = useState("");
@@ -68,11 +69,24 @@ const Home = () => {
 
 	useEffect(() => {
 		getAllImages();
+		bgRef.current.style.backgroundImage =
+			"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fc.stocksy.com%2Fa%2F5GF000%2Fz9%2F58657.jpg%3F1571449602&f=1&nofb=1)";
 	}, []);
 
 	return (
 		<>
 			<Navbar />
+			<div className="corousel mb-5 relative" ref={bgRef}>
+				<div className="container px-28 flex items-center flex-col">
+					<p className="text-white text-3xl">One Platform, a thousand way to be seen</p>
+					<form className="flex items-center w-full my-10">
+						<input type="text" className="p-5 w-full rounded-l-3xl rounded-r-none" />
+						<button className="px-12 py-6 text-white h-full rounded-l-none rounded-r-3xl bg-blue-500">
+							<i className="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</form>
+				</div>
+			</div>
 			<div
 				onClick={closeModal}
 				className="container mx-auto gap-5 sm:columns-1  md:columns-3 pb-24 px-5 md:px-0"
@@ -92,11 +106,11 @@ const Home = () => {
 										<Button
 											// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
 											cl="mr-5"
-											icon={<i class="fa-regular fa-heart"></i>}
+											icon={<i className="fa-regular fa-heart"></i>}
 										/>
 										<Button
 											// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
-											icon={<i class="fa-regular fa-plus"></i>}
+											icon={<i className="fa-regular fa-plus"></i>}
 										/>
 									</div>
 									<div className="button-container justify-between bottom-0  ">
@@ -109,7 +123,7 @@ const Home = () => {
 										</button>
 										<Button
 											clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
-											icon={<i class="fa-solid fa-arrow-down"></i>}
+											icon={<i className="fa-solid fa-arrow-down"></i>}
 										/>
 									</div>
 								</div>

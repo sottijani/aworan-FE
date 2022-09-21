@@ -57,3 +57,14 @@ code {
 .show-prop-con:hover div {
 	opacity: 1;
 }
+
+.corousel {
+	height: 500px;
+	background: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fc.stocksy.com%2Fa%2F5GF000%2Fz9%2F58657.jpg%3F1571449602&f=1&nofb=1);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

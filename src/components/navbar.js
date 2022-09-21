@@ -5,7 +5,7 @@ export default function Navbar() {
 	return (
 		<>
 			<div className="">
-				<div className="container mx-auto flex mb-10 items-center justify-between">
+				<div className="container mx-auto flex items-center justify-between">
 					<div>
 						<img src={logo} alt="logo" />
 					</div>
