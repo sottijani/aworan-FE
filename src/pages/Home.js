@@ -7,6 +7,17 @@ import Modal from "../components/Modal";
 import UserContext from "../context/UserContext";
 import Contributor from "../services/contributor.service";
 
+const Button = ({ clickEvent, icon, cl }) => (
+	<>
+		<button
+			onClick={clickEvent}
+			className={`text-right  px-2 py-1 rounded-md text-black bg-white ${cl}`}
+		>
+			{icon}
+		</button>
+	</>
+);
+
 const Home = () => {
 	const http = new Contributor();
 	const [images, setImages] = useState([]);
@@ -37,7 +48,7 @@ const Home = () => {
 	};
 
 	const download = (img, fileName) => async () => {
-		let headerAut = http.header;
+		// let headerAut = http.header;
 		if (!user.id) navigate("/signup", { replace: true });
 		else
 			axios
@@ -61,32 +72,43 @@ const Home = () => {
 	return (
 		<div
 			onClick={closeModal}
-			className="container mx-auto gap-10 sm:columns-1  md:columns-3 lg:columns-4 py-24 px-5 md:px-0"
+			className="container mx-auto gap-5 sm:columns-1  md:columns-3 py-24 px-5 md:px-0"
 		>
 			{modal && <Modal img={currentImg} />}
 
 			{images.length
 				? images.map((img) => (
 						<>
-							<div className="shadow-lg  rounded-lg overflow-hidden mb-10">
+							<div className="shadow-lg  overflow-hidden mb-5 relative show-prop-con ">
 								<img
 									src={`${cloudinaryUrl}${img.img_url}`}
 									alt={img.title}
-									className="w-full h-full object-cover hover:scale-x-105 duration-105 cursor-pointer transition-transform"
+									className="w-full h-full object-cover"
 								/>
-								<button
-									onClick={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
-									className="p-4 bg-blue-500 text-white inline-block"
-									download
-								>
-									Download
-								</button>
-								{/* <button
-									onClick={showModal(`${cloudinaryUrl}${img.img_url}`)}
-									className="p-4 bg-blue-500 text-white"
-								>
-									View
-								</button> */}
+								<div className="button-container justify-end top-0">
+									<Button
+										// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+										cl="mr-5"
+										icon={<i class="fa-regular fa-heart"></i>}
+									/>
+									<Button
+										// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+										icon={<i class="fa-regular fa-plus"></i>}
+									/>
+								</div>
+								<div className="button-container justify-between bottom-0  ">
+									<button className="rounded-full overflow-hidden w-12 h-12">
+										<img
+											src={`${cloudinaryUrl}${img.img_url}`}
+											alt={img.title}
+											className="w-full h-full object-cover"
+										/>
+									</button>
+									<Button
+										clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+										icon={<i class="fa-solid fa-arrow-down"></i>}
+									/>
+								</div>
 							</div>
 						</>
 				  ))
@@ -96,3 +118,4 @@ const Home = () => {
 };
 
 export default Home;
+// showModal(`${cloudinaryUrl}${img.img_url}`)

@@ -15,7 +15,7 @@ code {
 @tailwind components;
 @tailwind utilities;
 
-/**
+/*
 	auth form css appllies here
 */
 @layer base {
@@ -23,6 +23,7 @@ code {
 	input {
 		@apply block my-2;
 	}
+
 	input,
 	select {
 		@apply rounded-md border-collapse border-2 border-gray-200 p-2.5 w-full;
@@ -43,4 +44,16 @@ code {
 	.auth-button {
 		@apply bg-blue-600 text-white w-full my-2 p-3 rounded-md border-collapse;
 	}
+	.button-container {
+		@apply absolute flex w-full left-0 p-4 items-center;
+	}
+}
+
+.show-prop-con div {
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.show-prop-con:hover div {
+	opacity: 1;
 }
