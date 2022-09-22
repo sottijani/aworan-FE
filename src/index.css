@@ -68,3 +68,16 @@ code {
 	justify-content: center;
 	align-items: center;
 }
+
+/*Image  modal css */
+.modal-body .modal-cap {
+	height: 7.5%;
+	padding: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.modal-body .modal-image {
+	height: 85%;
+}

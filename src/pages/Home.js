@@ -3,6 +3,7 @@ import fileDownload from "js-file-download";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import Footer from "../components/footer";
 import Modal from "../components/Modal";
 import Navbar from "../components/navbar";
 import UserContext from "../context/UserContext";
@@ -91,8 +92,6 @@ const Home = () => {
 				onClick={closeModal}
 				className="container mx-auto gap-5 sm:columns-1  md:columns-3 pb-24 px-5 md:px-0"
 			>
-				{modal && <Modal img={currentImg} />}
-
 				{images.length
 					? images.map((img) => (
 							<>
@@ -101,6 +100,7 @@ const Home = () => {
 										src={`${cloudinaryUrl}${img.img_url}`}
 										alt={img.title}
 										className="w-full h-full object-cover"
+										onClick={showModal(`${cloudinaryUrl}${img.img_url}`)}
 									/>
 									<div className="button-container justify-end top-0">
 										<Button
@@ -130,7 +130,10 @@ const Home = () => {
 							</>
 					  ))
 					: ""}
+				{modal && <Modal img={currentImg} />}
 			</div>
+
+			<Footer />
 		</>
 	);
 };
