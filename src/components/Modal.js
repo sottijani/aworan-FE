@@ -41,10 +41,10 @@ const Modal = ({ img }) => {
 					<div>
 						<button className="p-3 rounded-lg bg-blue-500 text-white">Buy Photo</button>
 						<button className="text-right  border-gray-500 px-3 py-2 rounded-md  bg-white border-2 mx-4">
-							<i className="fa-solid fa-arrow-down"></i>
+							<i className="fa-regular fa-plus"></i>
 						</button>
 						<button className="text-right  border-gray-500 px-3 py-2 rounded-md  bg-white border-2 ">
-							<i className="fa-solid fa-arrow-down"></i>
+							<i className="fa-regular fa-heart"></i>
 						</button>
 					</div>
 				</div>
