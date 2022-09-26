@@ -1,4 +1,4 @@
-const Modal = ({ img }) => {
+const Modal = ({ img, onclose }) => {
 	const style = { background: "rgba(0,0,0,.8" };
 	const MiscButton = ({ mainTex, caption }) => (
 		<>
@@ -18,6 +18,7 @@ const Modal = ({ img }) => {
 		<div
 			className={`w-screen z-auto  h-screen fixed left-0 top-0 flex justify-center items-center`}
 			style={style}
+			onClick={onclose}
 		>
 			{/* Modal */}
 			<div

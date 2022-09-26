@@ -88,10 +88,7 @@ const Home = () => {
 					</form>
 				</div>
 			</div>
-			<div
-				onClick={closeModal}
-				className="container mx-auto gap-5 sm:columns-1  md:columns-3 pb-24 px-5 md:px-0"
-			>
+			<div className="container mx-auto gap-5 sm:columns-1  md:columns-3 pb-24 px-5 md:px-0">
 				{images.length
 					? images.map((img) => (
 							<>
@@ -130,7 +127,7 @@ const Home = () => {
 							</>
 					  ))
 					: ""}
-				{modal && <Modal img={currentImg} />}
+				{modal && <Modal img={currentImg} onclose={closeModal} />}
 			</div>
 
 			<Footer />

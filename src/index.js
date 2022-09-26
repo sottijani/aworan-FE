@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { UserProvider } from "./context/UserContext";
 import "./index.css";
+import "./font.css";
 import App from "./initial/App";
 // import reportWebVitals from './reportWebVitals';
 
