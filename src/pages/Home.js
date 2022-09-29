@@ -147,7 +147,7 @@ const Home = () => {
 											/>
 										</button>
 										<Button
-											clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
+											clickEvent={download(`${cloudinaryUrl}${img.img_url}`)}
 											icon={<i className="fa-solid fa-arrow-down"></i>}
 										/>
 									</div>
