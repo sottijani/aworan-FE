@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 import Navbar from "../components/navbar";
 import UserContext from "../context/UserContext";
 import Contributor from "../services/contributor.service";
+import downloadProgress from "../services/download";
 
 const Button = ({ clickEvent, icon, cl }) => (
 	<>
@@ -29,6 +30,7 @@ const Home = () => {
 	const cloudinaryUrl = "https://res.cloudinary.com/dd1zbrj8l/image/upload/v1660036816/";
 	const { user } = useContext(UserContext);
 	const navigate = useNavigate();
+	// const [downloaded, setDownloaded] = useState();
 
 	const getAllImages = async () => {
 		const savedData = sessionStorage.getItem("results");
@@ -50,19 +52,45 @@ const Home = () => {
 		setModal(true);
 	};
 
-	const download = (img, fileName) => async () => {
-		// let headerAut = http.header;
-		if (!user.id) navigate("/signup", { replace: true });
-		else
-			axios
-				.get(img, {
-					responseType: "blob",
-					headers: {
-						"Authorization": `Bearer ${localStorage.getItem("token")}`,
-					},
-				})
-				.then((res) => fileDownload(res.data, fileName + ".jpg"));
+	const download = async (fileSource) => {
+		const v = await axios.get(fileSource, {
+			responseType: "blob",
+			headers: {
+				"Authorization": `Bearer ${localStorage.getItem("token")}`,
+			},
+			onDownloadProgress: (progressEv) => {
+				const { loaded, total } = progressEv;
+				console.log(loaded, total);
+			},
+		});
+		const response = await v.data;
+		const blob = new Blob([response.blob()], { type: response.headers("content-type") });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = url.replace(/^.*[\\/]/, "");
+		link.click();
+
+		setTimeout(() => {
+			link.remove();
+		}, 2000);
+
+		// fileDownload(v.data, filename)
 	};
+
+	// const download = (img, fileName) => async () => {
+	// 	// let headerAut = http.header;
+	// 	if (!user.id) navigate("/signup", { replace: true });
+	// 	else
+	// 		axios
+	// 			.get(img, {
+	// 				responseType: "blob",
+	// 				headers: {
+	// 					"Authorization": `Bearer ${localStorage.getItem("token")}`,
+	// 				},
+	// 			})
+	// 			.then((res) => fileDownload(res.data, fileName + ".jpg"));
+	// };
 
 	const closeModal = () => {
 		if (modal) setModal(false);
