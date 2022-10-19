@@ -6,6 +6,7 @@ import AuthService from "../services";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
+import HTTP from "../http/consume";
 
 export default function Signin() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -13,7 +14,7 @@ export default function Signin() {
 	const history = useNavigate();
 	const service = new AuthService();
 
-	const { userProfile } = useContext(UserContext);
+	const { userProfile, logout } = useContext(UserContext);
 	const {
 		register,
 		handleSubmit,
@@ -24,15 +25,24 @@ export default function Signin() {
 		console.log(res);
 		if (res.token) {
 			localStorage.setItem("token", res.token);
+			history("/profile");
 
-			setTimeout(() => {
-				getProfile();
-				history("/profile");
-			}, 2000);
+			// const ans = await HTTP.get("profile");
+			// if (ans.status < 400) {
+			// 	console.log(ans);
+			// 	userProfile(ans.data.data);
+			// 	history("/profile");
+			// }
+			// setMessage(res.message);
+			// console.log(ans);
 		}
-		setMessage(res.message);
+
 		// console.log(res);
 	};
+
+	useState(() => {
+		logout();
+	}, []);
 
 	const getProfile = async () => {
 		const res = await service.profile();
@@ -67,23 +77,12 @@ export default function Signin() {
 				</div>
 				<div className="relative">
 					<label>Password</label>
-					<input
-						type={showPassword ? "text" : "password"}
-						{...register("password", { required: true })}
-					/>
+					<input type={showPassword ? "text" : "password"} {...register("password", { required: true })} />
 					{errors.password && <p className="error">Password is required.</p>}
-					<ShowPassword
-						image={Vector}
-						setShowPassword={setShowPassword}
-						showPassword={showPassword}
-					/>
+					<ShowPassword image={Vector} setShowPassword={setShowPassword} showPassword={showPassword} />
 				</div>
 				<button className="auth-button">submit</button>
-				{message && (
-					<p className="rounded text-white capitalize bg-red-500 my-2 py-5 text-center">
-						{message}
-					</p>
-				)}
+				{message && <p className="rounded text-white capitalize bg-red-500 my-2 py-5 text-center">{message}</p>}
 			</form>
 		</div>
 	);

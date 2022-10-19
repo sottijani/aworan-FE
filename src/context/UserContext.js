@@ -6,6 +6,8 @@ export const UserProvider = ({ container }) => {
 	const [updated, setUpdated] = useState(false);
 	const userProfile = (userProfile) => {
 		setUser(userProfile);
+		console.log("working");
+		localStorage.setItem("login", true);
 		localStorage.setItem("profile", JSON.stringify(userProfile));
 		setUpdated(!updated);
 	};
@@ -13,6 +15,7 @@ export const UserProvider = ({ container }) => {
 	const logout = () => {
 		localStorage.removeItem("profile");
 		localStorage.removeItem("token");
+		setUser({});
 	};
 
 	useEffect(() => {
@@ -20,9 +23,7 @@ export const UserProvider = ({ container }) => {
 		if (userDetail) setUser(JSON.parse(userDetail));
 	}, [updated]);
 
-	return (
-		<UserContext.Provider value={{ user, userProfile, logout }}> {container} </UserContext.Provider>
-	);
+	return <UserContext.Provider value={{ user, userProfile, logout }}> {container} </UserContext.Provider>;
 };
 
 export default UserContext;

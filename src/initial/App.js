@@ -17,20 +17,23 @@ function App() {
 		<>
 			<UserProvider
 				container={
-					<BrowserRouter>
-						<div>
-							<Routes>
-								<Route path="/" element={<Home />} key="home" />
-								<Route path="/signup" element={<Signup />} key="signup" />
-								<Route path="/signin" element={<Signin />} key="signin" />
-								<Route path="/upload" element={<Create />} key="upload" />
-								<Route path="/history" element={<History />} key="history" />
-								<Route path="/profile" element={<Profile />} key="profile" />
-								<Route path="/payment" element={<Payment />} key="paymemt" />
-								<Route path="/dashboard" element={<Dasboard />} key="dashboard" />
-							</Routes>
-						</div>
-					</BrowserRouter>
+					<>
+						<BrowserRouter>
+							<div>
+								<Navbar />
+								<Routes>
+									<Route path="/" element={<Home />} key="home" />
+									<Route path="/signup" element={<Signup />} key="signup" />
+									<Route path="/signin" element={<Signin />} key="signin" />
+									<Route path="/upload" element={<Create />} key="upload" />
+									<Route path="/history" element={<History />} key="history" />
+									<Route path="/profile" element={<Profile />} key="profile" />
+									<Route path="/payment" element={<Payment />} key="paymemt" />
+									<Route path="/dashboard" element={<Dasboard />} key="dashboard" />
+								</Routes>
+							</div>
+						</BrowserRouter>
+					</>
 				}
 			/>
 			<ToastContainer hideProgressBar closeOnClick closeButton={false} autoClose={5000} />

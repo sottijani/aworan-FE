@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Http from "../../http";
 import AuthService from "../../services";
 import { useNavigate } from "react-router";
+import HTTP from "../../http/consume";
 export default function Create() {
 	// const [preview, setPreview] = useState(false);
 	// const show = useMemo(() => first, [second])
@@ -43,20 +44,19 @@ export default function Create() {
 		const fromToAdd = Object.keys(data);
 		const form = new FormData();
 		form.append("img", formImage);
-		for (let key of fromToAdd) {
-			form.append(key, data[key]);
-		}
-		const res = await new Http(service.baseUrl + "upload").post(form, service.header);
+		for (let key of fromToAdd) form.append(key, data[key]);
 
-		if (res.message === "Upload successful") setSuccess(true);
-		toast.info(res.message);
+		const response = await HTTP.post("upload", form);
+		console.log(response);
+		// const res = await new Http(service.baseUrl + "upload").post(form, service.header);
+
+		// if (res.message === "Upload successful") setSuccess(true);
+		// toast.info(res.message);
 
 		setTimeout(() => {
 			setUpload("");
 			setSuccess(false);
 		}, 5000);
-		// const res = await service.upload(FormData);
-		// toast.info(res.message);
 	};
 	return (
 		<>

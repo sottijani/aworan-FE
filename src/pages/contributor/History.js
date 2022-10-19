@@ -2,6 +2,7 @@ import { useContext, useEffect, useId, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Sidebar from "../../components/Sidebar";
 import UserContext from "../../context/UserContext";
+import HTTP from "../../http/consume";
 import Contributor from "../../services/contributor.service";
 
 export default function History() {
@@ -32,9 +33,11 @@ export default function History() {
 	}, []);
 
 	const deleteImage = (id) => async () => {
-		const res = await service.deleteUpload(id);
-		if (res.message === "image Deleted") document.getElementById(id).style.display = "none";
-		toast(res.message);
+		const response = await HTTP.remove(`delete/image/${id}`);
+		console.log(response);
+		// const res = await service.deleteUpload(id);
+		// if (res.message === "image Deleted") document.getElementById(id).style.display = "none";
+		// toast(res.message);
 	};
 
 	return (

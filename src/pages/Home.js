@@ -1,110 +1,66 @@
-import axios from "axios";
-import fileDownload from "js-file-download";
 import { useContext, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Footer from "../components/footer";
 import Modal from "../components/Modal";
 import Navbar from "../components/navbar";
 import UserContext from "../context/UserContext";
-import Contributor from "../services/contributor.service";
-import downloadProgress from "../services/download";
-
-const Button = ({ clickEvent, icon, cl }) => (
-	<>
-		<button
-			onClick={clickEvent}
-			className={`text-right  px-2 py-1 rounded-md text-black bg-white ${cl}`}
-		>
-			{icon}
-		</button>
-	</>
-);
+import HTTP from "../http/consume";
 
 const Home = () => {
+	const cloudinaryUrl = process.env.REACT_APP_CLOUD_URL;
+	const { user } = useContext(UserContext);
 	const bgRef = useRef();
-	const http = new Contributor();
-	const [images, setImages] = useState([]);
+
 	const [currentImg, setCurrentImg] = useState("");
 	const [modal, setModal] = useState(false);
-	const cloudinaryUrl = "https://res.cloudinary.com/dd1zbrj8l/image/upload/v1660036816/";
-	const { user } = useContext(UserContext);
-	const navigate = useNavigate();
-	// const [downloaded, setDownloaded] = useState();
+	const [images, setImages] = useState([]);
 
 	const getAllImages = async () => {
 		const savedData = sessionStorage.getItem("results");
 		if (savedData) setImages(JSON.parse(savedData));
-		else {
-			const res = await http.uploads();
+		if (!savedData) {
 			const {
-				data: { data: response },
-			} = res;
-			sessionStorage.setItem("results", JSON.stringify(response));
-			setImages(response);
-			console.log(response);
+				data: { data: response, message },
+				status,
+			} = await HTTP.get("uploads/");
+			console.log(message);
+			if (status < 400) {
+				sessionStorage.setItem("results", JSON.stringify(response));
+				setImages(response);
+			} else toast.warn(message);
 		}
 	};
 
 	const showModal = (img) => () => {
-		console.log(img);
-		setCurrentImg(img);
+		setCurrentImg(`${cloudinaryUrl}${img}`);
 		setModal(true);
 	};
 
-	const download = async (fileSource) => {
-		const v = await axios.get(fileSource, {
-			responseType: "blob",
-			headers: {
-				"Authorization": `Bearer ${localStorage.getItem("token")}`,
-			},
-			onDownloadProgress: (progressEv) => {
-				const { loaded, total } = progressEv;
-				console.log(loaded, total);
-			},
-		});
-		const response = await v.data;
-		const blob = new Blob([response.blob()], { type: response.headers("content-type") });
-		const url = URL.createObjectURL(blob);
-		const link = document.createElement("a");
-		link.href = url;
-		link.download = url.replace(/^.*[\\/]/, "");
-		link.click();
-
-		setTimeout(() => {
-			link.remove();
-		}, 2000);
-
-		// fileDownload(v.data, filename)
+	const updateDownload = async (id) => {
+		const data = {
+			user_id: user.id,
+			img_id: id,
+		};
+		await HTTP.put("update/download", data);
 	};
 
-	// const download = (img, fileName) => async () => {
-	// 	// let headerAut = http.header;
-	// 	if (!user.id) navigate("/signup", { replace: true });
-	// 	else
-	// 		axios
-	// 			.get(img, {
-	// 				responseType: "blob",
-	// 				headers: {
-	// 					"Authorization": `Bearer ${localStorage.getItem("token")}`,
-	// 				},
-	// 			})
-	// 			.then((res) => fileDownload(res.data, fileName + ".jpg"));
-	// };
+	const download = async (fileSource, id) => {
+		await HTTP.downloadFile(`${cloudinaryUrl}${fileSource}`, id, updateDownload(id));
+	};
 
 	const closeModal = () => {
-		if (modal) setModal(false);
+		if (modal) {
+			setCurrentImg("");
+			setModal(false);
+		}
 	};
 
 	useEffect(() => {
 		getAllImages();
-		bgRef.current.style.backgroundImage =
-			"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fc.stocksy.com%2Fa%2F5GF000%2Fz9%2F58657.jpg%3F1571449602&f=1&nofb=1)";
 	}, []);
 
 	return (
 		<>
-			<Navbar />
 			<div className="corousel mb-5 relative" ref={bgRef}>
 				<div className="container px-28 flex items-center flex-col">
 					<p className="text-white text-3xl">One Platform, a thousand way to be seen!</p>
@@ -121,12 +77,7 @@ const Home = () => {
 					? images.map((img) => (
 							<>
 								<div className="shadow-lg  overflow-hidden mb-5 relative show-prop-con ">
-									<img
-										src={`${cloudinaryUrl}${img.img_url}`}
-										alt={img.title}
-										className="w-full h-full object-cover"
-										onClick={showModal(`${cloudinaryUrl}${img.img_url}`)}
-									/>
+									<img src={`${cloudinaryUrl}${img.img_url}`} alt={img.title} className="w-full h-full object-cover" onClick={showModal(img.img_url)} />
 									<div className="button-container justify-end top-0">
 										<Button
 											// clickEvent={download(`${cloudinaryUrl}${img.img_url}`, img.title)}
@@ -140,16 +91,9 @@ const Home = () => {
 									</div>
 									<div className="button-container justify-between bottom-0  ">
 										<button className="rounded-full overflow-hidden w-12 h-12">
-											<img
-												src={`${cloudinaryUrl}${img.img_url}`}
-												alt={img.title}
-												className="w-full h-full object-cover"
-											/>
+											<img src={`${cloudinaryUrl}${img.img_url}`} alt={img.title} className="w-full h-full object-cover" />
 										</button>
-										<Button
-											clickEvent={download(`${cloudinaryUrl}${img.img_url}`)}
-											icon={<i className="fa-solid fa-arrow-down"></i>}
-										/>
+										<Button clickEvent={() => download(img.img_url, img.id)} icon={<i className="fa-solid fa-arrow-down"></i>} />
 									</div>
 								</div>
 							</>
@@ -164,4 +108,11 @@ const Home = () => {
 };
 
 export default Home;
-// showModal(`${cloudinaryUrl}${img.img_url}`)
+
+const Button = ({ clickEvent, icon, cl }) => (
+	<>
+		<button onClick={clickEvent} className={`text-right  px-2 py-1 rounded-md text-black bg-white ${cl}`}>
+			{icon}
+		</button>
+	</>
+);

@@ -6,32 +6,45 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import UserContext from "../context/UserContext.js";
+import HTTP from "../http/consume.js";
 
 export default function Profile() {
 	const service = new AuthService();
 	const [showProfile, setSowProfile] = useState("profile");
+	const [userDetail, setUserDetail] = useState();
 	// const [profile, setProfile] = useState({});
-	const { user: profile } = useContext(UserContext);
+	const { user: profile, userProfile } = useContext(UserContext);
 	const [profileUpdates, setProfileUpdates] = useState(false);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({ mode: "onChange" });
-	const headerCss =
-		"py-10 mr-10 border-0 border-2 border-transparent hover:border-b-2 hover:text-blue-500 border-collapse ";
+	const headerCss = "py-10 mr-10 border-0 border-2 border-transparent hover:border-b-2 hover:text-blue-500 border-collapse ";
 
 	const view = (v) => () => setSowProfile(v);
+
 	// const getProfile = async () => {
-	// 	const res = await service.profile();
-	// 	console.log(res);
-	// 	if (res.status) {
-	// 		const {
-	// 			data: { data: result },
-	// 		} = res;
-	// 		// setProfile(result);
-	// 	} else console.log(res.message);
+	// 	const ans = await HTTP.get("profile");
+	// 	console.log(ans);
+	// 	if (ans.status < 400) {
+	// 		console.log(ans);
+	// 		// userProfile(ans.data.data);
+	// 	}
 	// };
+	const getProfile = async () => {
+		if (Object.keys(profile).length) {
+			console.log(profile);
+			setUserDetail(profile);
+		} else {
+			const res = await service.profile();
+			if (res.status < 400) {
+				userProfile(res.data.data);
+				setUserDetail(res.data.data);
+				console.log(res.data.data.id);
+			} else console.log(res.data.message);
+		}
+	};
 
 	const updateProfile = async (data) => {
 		if (data.password && data.password !== data.confirm_password) {
@@ -43,9 +56,9 @@ export default function Profile() {
 		setProfileUpdates(!profileUpdates);
 	};
 
-	// useEffect(() => {
-	// 	// getProfile();
-	// }, [profileUpdates]);
+	useEffect(() => {
+		getProfile();
+	}, []);
 
 	const ProfileLayout = ({ title, caption, component }) => (
 		<>
@@ -61,41 +74,16 @@ export default function Profile() {
 		</>
 	);
 
-	const InputForm = ({
-		labe1,
-		label2,
-		type = "text",
-		type1 = "text",
-		defaultVal = "",
-		defaultVal2,
-		name1,
-		name2 = "",
-		readOnly1 = false,
-		readOnly2 = false,
-	}) => (
+	const InputForm = ({ labe1, label2, type = "text", type1 = "text", defaultVal = "", defaultVal2, name1, name2 = "", readOnly1 = false, readOnly2 = false }) => (
 		<>
 			<div className="flex justify-center">
 				<div className="w-full pr-5">
 					<label className=" text-gray-400">{labe1}</label>
-					{name1 && (
-						<input
-							type={type1}
-							defaultValue={defaultVal}
-							{...register(name1)}
-							readOnly={readOnly1}
-						/>
-					)}
+					{name1 && <input type={type1} defaultValue={defaultVal} {...register(name1)} readOnly={readOnly1} />}
 				</div>
 				<div className="w-full pl-3">
 					<label className=" text-gray-400">{label2}</label>
-					{name2 && (
-						<input
-							type={type}
-							defaultValue={defaultVal2}
-							{...register(name2)}
-							readOnly={readOnly2}
-						/>
-					)}
+					{name2 && <input type={type} defaultValue={defaultVal2} {...register(name2)} readOnly={readOnly2} />}
 				</div>
 			</div>
 		</>
@@ -108,31 +96,13 @@ export default function Profile() {
 				component={
 					<div className="w-full h-full bg-white rounded-lg">
 						<div className="shadow-sm flex justify-start items-center px-10">
-							<button
-								className={`${headerCss} ${
-									showProfile === "profile" ? "border-b-2 border-b-blue-500 text-blue-500 " : ""
-								}`}
-								role="link"
-								onClick={view("profile")}
-							>
+							<button className={`${headerCss} ${showProfile === "profile" ? "border-b-2 border-b-blue-500 text-blue-500 " : ""}`} role="link" onClick={view("profile")}>
 								Profile
 							</button>
-							<button
-								className={`${headerCss} ${
-									showProfile === "bank" ? "border-b-2 border-b-blue-500 text-blue-500" : ""
-								}`}
-								role="link"
-								onClick={view("bank")}
-							>
+							<button className={`${headerCss} ${showProfile === "bank" ? "border-b-2 border-b-blue-500 text-blue-500" : ""}`} role="link" onClick={view("bank")}>
 								Bank
 							</button>
-							<button
-								className={`${headerCss} ${
-									showProfile === "security" ? "border-b-2 border-b-blue-500 text-blue-500" : ""
-								}`}
-								role="link"
-								onClick={view("security")}
-							>
+							<button className={`${headerCss} ${showProfile === "security" ? "border-b-2 border-b-blue-500 text-blue-500" : ""}`} role="link" onClick={view("security")}>
 								Securiity
 							</button>
 						</div>
@@ -157,16 +127,7 @@ export default function Profile() {
 											<ProfileLayout
 												title="Full Name"
 												caption="cutomize your account name"
-												component={
-													<InputForm
-														labe1="First Name"
-														label2="Last Name"
-														defaultVal={profile?.first_name}
-														defaultVal2={profile?.last_name}
-														name1="first_name"
-														name2="last_name"
-													/>
-												}
+												component={<InputForm labe1="First Name" label2="Last Name" defaultVal={profile?.first_name} defaultVal2={profile?.last_name} name1="first_name" name2="last_name" />}
 											/>
 											<ProfileLayout
 												title="Email Address Name"
@@ -187,22 +148,10 @@ export default function Profile() {
 											<ProfileLayout
 												title="Phone Number"
 												caption="Change your phone number"
-												component={
-													<InputForm
-														labe1="Phone Number"
-														label2="Twitter"
-														defaultVal={profile?.phone}
-														defaultVal2={profile?.twitter}
-														name1="phone"
-														name2="twitter"
-													/>
-												}
+												component={<InputForm labe1="Phone Number" label2="Twitter" defaultVal={profile?.phone} defaultVal2={profile?.twitter} name1="phone" name2="twitter" />}
 											/>
 
-											<button
-												type="submit"
-												className="p-5 block rounded-lg my-11 mx-auto bg-blue-500 text-white "
-											>
+											<button type="submit" className="p-5 block rounded-lg my-11 mx-auto bg-blue-500 text-white ">
 												Save Changes
 											</button>
 										</form>
@@ -228,40 +177,11 @@ export default function Profile() {
 								{showProfile === "security" && (
 									<div>
 										<form onSubmit={handleSubmit(updateProfile)}>
-											<ProfileLayout
-												title="Current Password"
-												caption="change your password"
-												component={
-													<InputForm
-														labe1="Current Password"
-														name1="old_password"
-														type1="password"
-													/>
-												}
-											/>
-											<ProfileLayout
-												title="New Password"
-												caption="change your password"
-												component={
-													<InputForm labe1="New Password" name1="password" type1="password" />
-												}
-											/>
-											<ProfileLayout
-												title="Confirm Password"
-												caption="change your password"
-												component={
-													<InputForm
-														labe1="Confirm Password"
-														name1="confirm_password"
-														type1="password"
-													/>
-												}
-											/>
+											<ProfileLayout title="Current Password" caption="change your password" component={<InputForm labe1="Current Password" name1="old_password" type1="password" />} />
+											<ProfileLayout title="New Password" caption="change your password" component={<InputForm labe1="New Password" name1="password" type1="password" />} />
+											<ProfileLayout title="Confirm Password" caption="change your password" component={<InputForm labe1="Confirm Password" name1="confirm_password" type1="password" />} />
 											{/* {watch("password")} */}
-											<button
-												type="submit"
-												className="p-5 block rounded-lg my-5  bg-blue-500 text-white "
-											>
+											<button type="submit" className="p-5 block rounded-lg my-5  bg-blue-500 text-white ">
 												Save Changes
 											</button>
 										</form>
