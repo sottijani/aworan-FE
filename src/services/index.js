@@ -7,7 +7,8 @@ class AuthService {
 				"Authorization": `Bearer ${localStorage.getItem("token")}`,
 			},
 		};
-		this.baseUrl = "http://localhost:4000/";
+		this.baseUrl = "https://aworan.onrender.com/";
+		// this.baseUrl = "http://localhost:4000/";
 	}
 
 	http(params = "") {
