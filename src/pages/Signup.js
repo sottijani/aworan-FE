@@ -14,8 +14,6 @@ export default function Signup() {
 		formState: { errors },
 	} = useForm({ mode: "onChange" });
 	const signUp = async (data) => {
-		// console.log(JSON.stringify(data));
-		console.log(data);
 		if (data.password !== data.confirm_password) {
 			setPasswordMatch("Password not match");
 			return;
@@ -23,7 +21,7 @@ export default function Signup() {
 		setPasswordMatch("");
 		// return;
 		const d = await service.signUp(data).catch((err) => console.log(err));
-		console.log(d);
+		console.log(data);
 	};
 
 	const changeP = (data) => {
@@ -61,15 +59,8 @@ export default function Signup() {
 				</div>
 				<div className="relative">
 					<label>Password</label>
-					<input
-						type={showPassword ? "text" : "password"}
-						{...register("password", { required: true })}
-					/>
-					<ShowPassword
-						image={Vector}
-						setShowPassword={setShowPassword}
-						showPassword={showPassword}
-					/>
+					<input type={showPassword ? "text" : "password"} {...register("password", { required: true })} />
+					<ShowPassword image={Vector} setShowPassword={setShowPassword} showPassword={showPassword} />
 					{errors.password && <p className="error">Password cannot be empty</p>}
 				</div>
 				<div className="relative">
@@ -83,11 +74,7 @@ export default function Signup() {
 					/>
 					{errors.confirm_password && <p className="error">Confirm password cannot be empty</p>}
 					<p className="error">{passwordNotMatch}</p>
-					<ShowPassword
-						image={Vector}
-						setShowPassword={setShowPassword}
-						showPassword={showPassword}
-					/>
+					<ShowPassword image={Vector} setShowPassword={setShowPassword} showPassword={showPassword} />
 				</div>
 				<button className="auth-button">submit</button>
 				<p className="text-center py-3">
