@@ -11013,6 +11013,8 @@ a {
 .footer-2 {
   background: #132043;
   min-height: 93rem;
+  padding-top: 6em;
+  padding-bottom: 6em;
 }
 .footer-2 .inner {
   background: #1C2B53;
