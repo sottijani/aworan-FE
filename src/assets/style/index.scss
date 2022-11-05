@@ -1,0 +1,144 @@
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
+$aworan-primary : #2F80ED;
+$aworan-sec: #323D59;
+$aworan-ter: #DFECF8;
+$aworan-sec-2: #132043;
+$aworan-font-400: 400;
+$aworan-font-500: 500;
+$aworan-font-600: 600;
+$aworan-font-700: 700;
+$aworan-font-800: 800;
+$primary-radii: 2rem;
+$sec-radii: 1rem;
+$ter-radii: .6rem;
+$a-spacing1: 1.7rem;
+$a-spacing2: 3.8rem;
+$aworan-footer-padding: 5rem;
+$pxel-18 : 1.8rem;
+$pxel-36 : 3.6rem;
+$pxel-48: 4.8rem;
+$pxel-14: 1.4rem;
+$pxel-12 : 1.2rem;
+
+a {
+	font-weight: $aworan-font-500;
+	text-decoration: none;
+}
+
+body {
+	font-weight: $aworan-font-400;
+	color: $aworan-sec;
+}
+
+a {
+	color: $aworan-sec;
+}
+
+// color
+.d-blue {
+	color: $aworan-primary;
+}
+
+.d-bg-blue {
+	background: $aworan-primary;
+}
+
+.d-blue-sec {
+	color: $aworan-sec;
+}
+
+.d-blue-blue-sec {
+	background: $aworan-sec;
+}
+
+// aworan fonts
+.font-700 {
+	font-weight: $aworan-font-700;
+}
+
+.font-18 {
+	font-size: $pxel-18;
+}
+
+.font-36 {
+	font-size: $pxel-36;
+}
+
+.font-48 {
+	font-size: $pxel-48;
+}
+
+.font-14 {
+	font-size: $pxel-14;
+}
+
+.font-12 {
+	font-size: $pxel-12;
+}
+
+// border
+.round-pri {
+	border-radius: $primary-radii;
+}
+
+.round-sec {
+	border-radius: $sec-radii;
+}
+
+.round-ter {
+	border-radius: $ter-radii;
+}
+
+.p-footer {
+	padding: $aworan-footer-padding;
+}
+
+.footer-1 {
+	background: $aworan-ter;
+	min-height: 90rem;
+}
+
+.footer-2 {
+	background: $aworan-sec-2;
+	min-height: 93rem;
+
+	.inner {
+		background: #1C2B53;
+		min-height: 50rem;
+		border-radius: $ter-radii ;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 7.8rem;
+
+		input {
+			width: 55rem;
+		}
+	}
+
+	.inner-2 {
+		margin: 4rem inherit;
+
+		.links {
+			padding-top: 4rem;
+			padding-bottom: 4rem;
+
+			a {
+				display: block;
+				color: #fff;
+				margin: 1.5rem 0;
+				font-weight: $aworan-font-400;
+			}
+		}
+
+		p {
+			font-weight: $aworan-font-700;
+			font-size: $pxel-18;
+		}
+
+
+
+	}
+}

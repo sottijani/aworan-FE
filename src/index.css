@@ -1,3 +1,8 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
 html {
 	font-size: 62.5%;
 }
@@ -5,11 +10,72 @@ body,
 html {
 	margin: 0;
 	padding: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+	font-family: "Plus Jakarta Sans", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-body {
+body,
+.btn {
 	font-size: 1.6rem;
+}
+
+/* navigation css */
+.aworan-nav a {
+	padding: 1.7rem 3.8rem;
+	font-weight: 600;
+}
+
+.aworan-padding {
+	padding: 1.7rem 3.8rem;
+}
+
+nav {
+	height: 9.7rem;
+	padding: 0 12rem;
+}
+
+.carousel {
+	height: 80rem;
+	background: url("./assets/img/carousel.png");
+	background-size: cover;
+}
+
+.aworan-container {
+	width: calc(100% - 8rem);
+	margin: auto;
+}
+
+/* image display */
+
+.gallery {
+	display: column;
+	columns: 4;
+	gap: 1em;
+}
+
+.gallery > * {
+	break-inside: avoid;
+	margin-bottom: 1em;
+}
+
+@supports (grid-template-columns: mansory) {
+	.gallery {
+		display: grid;
+
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: mansory;
+		gap: 1em;
+	}
+}
+
+.gallery img {
+	width: 100%;
+	object-fit: cover;
+}
+
+/* footer */
+.footer-icon {
+	width: 3.2em;
+	height: 3.2em;
 }

@@ -3,13 +3,15 @@ const Navbar = () => {
 	return (
 		<>
 			<div>
-				<nav>
+				<nav className="d-flex align-items-center">
 					<img src={assets.logo} alt="logo" />
-					<div>
+					<div className="ms-auto aworan-nav">
 						<a href="/#">FAQ</a>
 						<a href="/#">Legal</a>
 						<a href="/#">Login</a>
-						<a href="/#">Register</a>
+						<a href="/#" className="d-bg-blue text-white round-ter" role="button">
+							Register
+						</a>
 					</div>
 				</nav>
 			</div>
