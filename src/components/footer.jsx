@@ -72,7 +72,7 @@ const Footer = () => {
 									</div>
 									<div className="col-md-3">
 										<p>Address</p>
-										<a>2715 Ash Dr. San Jose, South Dakota 83475</a>
+										<a href="#/">2715 Ash Dr. San Jose, South Dakota 83475</a>
 									</div>
 								</div>
 							</div>
