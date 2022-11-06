@@ -3,7 +3,7 @@ import assets from "../js/assets";
 const Footer = () => {
 	return (
 		<>
-			<article className="footer-1 d-flex align-items-center">
+			<article className="footer-1 d-flex align-items-center" key="ieo">
 				<div className="aworan-container p-footer ">
 					<div className="row">
 						<div className="col-md-4 footer pe-md-0">
@@ -11,7 +11,7 @@ const Footer = () => {
 								<p className="font-12">WHY CHOOSE MOOLAR</p>
 								<p className="font-36 font-700">What makes US great!</p>
 								<p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-								<button className="btn aworan-padding d-bg-blue text-white my-5 round-ter">Get Started</button>
+								<button className="border-0 aworan-padding d-bg-blue text-white my-5 round-ter">Get Started</button>
 							</section>
 						</div>
 						<div className="col-md-2"></div>
@@ -31,7 +31,8 @@ const Footer = () => {
 					</div>
 				</div>
 			</article>
-			<article className="footer-2 d-flex flex-column p-footer">
+
+			<article className="footer-2 d-flex flex-column p-footer" key="ika">
 				<div className="aworan-container">
 					<div className="inner">
 						<span>
@@ -41,7 +42,7 @@ const Footer = () => {
 							<p className="text-white text-center font-48 font-700 d-md-none">Create an account now. Start converting your funds.</p>
 						</span>
 						<input placeholder="Enter your email address" className=" aworan-padding round-ter border-0 my-5" />
-						<button className="btn aworan-padding d-bg-blue text-white round-ter ">Get Started</button>
+						<button className="border-0 aworan-padding d-bg-blue text-white round-ter ">Get Started</button>
 					</div>
 				</div>
 				<div className="aworan-container inner-2">

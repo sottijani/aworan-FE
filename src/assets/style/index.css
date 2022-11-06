@@ -10969,6 +10969,10 @@ a {
   font-weight: 700;
 }
 
+.font-500 {
+  font-weight: 500;
+}
+
 .font-18 {
   font-size: 1.8rem;
 }
@@ -10987,6 +10991,10 @@ a {
 
 .font-12 {
   font-size: 1.2rem;
+}
+
+.rounded-20 {
+  border-radius: 1.8rem;
 }
 
 .round-pri {
@@ -11045,4 +11053,12 @@ a {
 .footer-2 .inner-2 p {
   font-weight: 700;
   font-size: 1.8rem;
+}
+
+.gallery-cont .pic-meta {
+  opacity: 0;
+  transition: 1s;
+}
+.gallery-cont:hover .pic-meta {
+  opacity: 1;
 }/*# sourceMappingURL=index.css.map */

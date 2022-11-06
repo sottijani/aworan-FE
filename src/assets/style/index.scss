@@ -57,6 +57,10 @@ a {
 	font-weight: $aworan-font-700;
 }
 
+.font-500 {
+	font-weight: $aworan-font-500;
+}
+
 .font-18 {
 	font-size: $pxel-18;
 }
@@ -78,6 +82,10 @@ a {
 }
 
 // border
+.rounded-20 {
+	border-radius: 1.8rem;
+}
+
 .round-pri {
 	border-radius: $primary-radii;
 }
@@ -142,5 +150,22 @@ a {
 
 
 
+	}
+}
+
+// home css
+
+.gallery-cont {
+
+
+	.pic-meta {
+		opacity: 0;
+		transition: 1s;
+	}
+
+	&:hover {
+		.pic-meta {
+			opacity: 1;
+		}
 	}
 }
