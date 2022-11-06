@@ -40,7 +40,7 @@ const HomePage = () => {
 						<img src={pic} alt={i} loading="lazy" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button" />
 						<div className="d-flex justify-content-between align-items-center position-absolute bottom-0 left-0 w-100 p-3 pic-meta">
 							<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
-								<img src={pic} width="100%" height="100%" alt="" className="d-block me-4" />
+								<img src={pic} width="100%" alt="" className="d-block me-4" />
 							</div>
 							<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
 						</div>
@@ -48,14 +48,14 @@ const HomePage = () => {
 				))}
 			</div>
 
-			{/* modal for preview */}
+			{/* modal for image preview */}
 			<div className="modal fade " id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" key="modal">
 				<div className="modal-dialog modal-dialog-centered">
 					<div className="modal-content rounded-0">
 						<div className="modal-header border-0">
 							<div className="d-flex align-items-center">
 								<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
-									<img src={preview} width="100%" height="100%" alt="" className="d-block me-4" />
+									<img src={preview} width="100%" alt="" className="d-block me-4" />
 								</div>
 								<p className="ps-3 pt-3">
 									<span className="font-500">BBA Imagery</span> <br /> <small>@bbaImagery</small>
