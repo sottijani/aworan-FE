@@ -1,13 +1,15 @@
-import Footer from "./components/footer";
-import Navbar from "./components/navbar";
-import HomePage from "./pages/home";
+// import Footer from "./components/footer";
+// import Navbar from "./components/navbar";
+import Sidebar from "./components/sidebar";
+// import HomePage from "./pages/home";
 
 function App() {
 	return (
 		<>
-			<Navbar />
+			<Sidebar />
+			{/* <Navbar />
 			<HomePage />
-			<Footer />
+			<Footer /> */}
 		</>
 	);
 }

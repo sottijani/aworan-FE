@@ -10,6 +10,7 @@ import galaxy from "../assets/img/galaxy.png";
 import laptop from "../assets/img/laptop.png";
 import man from "../assets/img/man.png";
 import pallet from "../assets/img/pallet.png";
+import avatar from "../assets/img/avatar.png";
 import footer_hand from "../assets/icons/hand.png";
 import facebook from "../assets/icons/facebook.png";
 import instagram from "../assets/icons/instagram.png";
@@ -26,6 +27,7 @@ const assets = {
 	"instagram": instagram,
 	"youtube": youtube,
 	"linkedin": linkedin,
+	"avatar": avatar,
 };
 
 export const homeImage = [baby, animal, bowl, man, bubble, galaxy, laptop, pallet, art];

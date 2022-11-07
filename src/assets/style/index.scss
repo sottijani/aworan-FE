@@ -16,10 +16,19 @@ $a-spacing1: 1.7rem;
 $a-spacing2: 3.8rem;
 $aworan-footer-padding: 5rem;
 $pxel-18 : 1.8rem;
+$pxel-22 : 2.2rem;
 $pxel-36 : 3.6rem;
 $pxel-48: 4.8rem;
 $pxel-14: 1.4rem;
 $pxel-12 : 1.2rem;
+
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+}
+
 
 a {
 	font-weight: $aworan-font-500;
@@ -67,6 +76,10 @@ a {
 
 .font-36 {
 	font-size: $pxel-36;
+}
+
+.font-22 {
+	font-size: $pxel-22;
 }
 
 .font-48 {
@@ -154,10 +167,7 @@ a {
 }
 
 // home css
-
 .gallery-cont {
-
-
 	.pic-meta {
 		opacity: 0;
 		transition: 1s;
@@ -166,6 +176,111 @@ a {
 	&:hover {
 		.pic-meta {
 			opacity: 1;
+		}
+	}
+}
+
+// padding
+.apt-10 {
+	padding-top: 10rem;
+}
+
+.apb-10 {
+	padding-bottom: 10rem;
+}
+
+.amt-10 {
+	margin-top: 10rem;
+}
+
+.amb-10 {
+	margin-bottom: 10rem;
+}
+
+.apt-6 {
+	padding-top: 6rem;
+}
+
+.apb-6 {
+	padding-bottom: 6rem;
+}
+
+.amt-6 {
+	margin-top: 6rem;
+}
+
+.amb-6 {
+	margin-bottom: 6rem;
+}
+
+.apt-4 {
+	padding-top: 4rem;
+}
+
+.apb-4 {
+	padding-bottom: 4rem;
+}
+
+.amt-4 {
+	margin-top: 4rem;
+}
+
+.amb-4 {
+	margin-bottom: 4rem;
+}
+
+.apt-2 {
+	padding-top: 2rem;
+}
+
+.apb-2 {
+	padding-bottom: 2rem;
+}
+
+.amt-2 {
+	margin-top: 2rem;
+}
+
+.amb-2 {
+	margin-bottom: 2rem;
+}
+
+// sidebar
+.sidebar {
+	height: 100vh;
+	background: #EFF4F9;
+
+	.side-nav {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+	}
+
+	.img-container {
+		width: 11rem;
+		height: 11rem;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	a {
+		display: block;
+		padding: $a-spacing1 $a-spacing2 ;
+		box-shadow: 0px 0px 6px rgba(188, 210, 244, 0.3);
+		border-radius: $ter-radii;
+		width: 30rem;
+		max-width: 80%;
+		margin: $a-spacing1 auto;
+		color: #8A99AA;
+
+		i {
+			display: inline-block;
+			margin-right: 1.5rem;
+			width: 2rem;
 		}
 	}
 }
