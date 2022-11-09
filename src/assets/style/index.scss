@@ -323,7 +323,7 @@ a {
 		.row {
 			gap: 3rem;
 
-			.col-md-3 {
+			.bank {
 				min-height: 13rem;
 				border: 1px solid #E8EBF4;
 			}
@@ -345,7 +345,8 @@ a {
 	}
 }
 
-.addbank {
+.addbank,
+.profile {
 	color: #8A99AA;
 	font-size: 1.4rem;
 	font-weight: 500;
@@ -354,6 +355,10 @@ a {
 		border: 1px solid #E8EBF4;
 		border-radius: .6rem;
 		width: 100%;
+	}
+
+	label {
+		font-size: 1.4rem;
 	}
 
 	.bt {
