@@ -1,6 +1,9 @@
 import assets from "../js/assets";
-import Create from "../pages/create";
-import Settings from "../pages/settings";
+import Dashboard from "../pages/dashboard";
+// import Create from "../pages/create";
+// import History from "../pages/history";
+// import Payment from "../pages/payment";
+// import Settings from "../pages/settings";
 
 const Sidebar = () => {
 	return (
@@ -44,7 +47,10 @@ const Sidebar = () => {
 				</div>
 				<div className="col-md-10 cont-container">
 					{/* <Settings /> */}
-					<Create />
+					{/* <Create /> */}
+					{/* <History /> */}
+					{/* <Payment /> */}
+					<Dashboard />
 				</div>
 			</div>
 		</div>
