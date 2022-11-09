@@ -36,7 +36,7 @@ a {
 }
 
 body {
-	font-weight: $aworan-font-400;
+	// font-weight: $aworan-font-400;
 	color: $aworan-sec;
 }
 
@@ -68,6 +68,10 @@ a {
 
 .font-500 {
 	font-weight: $aworan-font-500;
+}
+
+.font-400 {
+	font-weight: $aworan-font-400;
 }
 
 .font-18 {
@@ -257,8 +261,8 @@ a {
 	}
 
 	.img-container {
-		width: 11rem;
-		height: 11rem;
+		width: 10rem;
+		height: 10rem;
 
 		img {
 			width: 100%;
@@ -268,11 +272,12 @@ a {
 	}
 
 	a {
-		display: block;
-		padding: $a-spacing1 $a-spacing2 ;
+		display: flex;
+		align-items: center;
+		padding: $a-spacing1 2.5rem;
 		box-shadow: 0px 0px 6px rgba(188, 210, 244, 0.3);
 		border-radius: $ter-radii;
-		width: 30rem;
+		width: 20rem;
 		max-width: 80%;
 		margin: $a-spacing1 auto;
 		color: #8A99AA;
@@ -282,5 +287,76 @@ a {
 			margin-right: 1.5rem;
 			width: 2rem;
 		}
+
+		span {
+			display: block;
+		}
+	}
+}
+
+.cont-container {
+	padding: 0 4rem;
+}
+
+// settings
+.settings {
+	.tabs {
+		padding-left: 3rem;
+		box-shadow: 0px 4px 12px rgba(197, 219, 244, 0.2);
+		font-size: 1.3rem;
+
+		span {
+			display: block;
+			padding: 2.3rem 0;
+			display: block;
+			margin-right: 3rem;
+
+			&:hover {
+				border-bottom: 2px solid $aworan-primary
+			}
+		}
+	}
+
+	.content {
+		padding: 3.3rem 3rem;
+
+		.row {
+			gap: 3rem;
+
+			.col-md-3 {
+				min-height: 13rem;
+				border: 1px solid #E8EBF4;
+			}
+
+			.bank {
+				color: #1A79D1;
+			}
+
+			.del-bank {
+				background: #EFF4F9;
+				padding: 1.5rem 2rem;
+
+				small {
+					color: #8A99AA;
+					;
+				}
+			}
+		}
+	}
+}
+
+.addbank {
+	color: #8A99AA;
+	font-size: 1.4rem;
+	font-weight: 500;
+
+	input {
+		border: 1px solid #E8EBF4;
+		border-radius: .6rem;
+		width: 100%;
+	}
+
+	.bt {
+		padding-top: 7.7rem;
 	}
 }
