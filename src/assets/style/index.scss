@@ -365,3 +365,29 @@ a {
 		padding-top: 7.7rem;
 	}
 }
+
+.create {
+	.upload {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 10.3rem 0;
+
+		.file {
+			width: 54.5rem;
+			height: 38.2rem;
+			display: grid;
+			place-content: center;
+			text-align: center;
+			cursor: pointer;
+			border-radius: 2rem;
+			border: 2px solid #323D59;
+			background: #EFF4F9;
+			margin-bottom: 11.2rem;
+		}
+
+
+
+		// padding: ;
+	}
+}

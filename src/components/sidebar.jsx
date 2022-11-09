@@ -1,4 +1,5 @@
 import assets from "../js/assets";
+import Create from "../pages/create";
 import Settings from "../pages/settings";
 
 const Sidebar = () => {
@@ -42,7 +43,8 @@ const Sidebar = () => {
 					</div>
 				</div>
 				<div className="col-md-10 cont-container">
-					<Settings />
+					{/* <Settings /> */}
+					<Create />
 				</div>
 			</div>
 		</div>

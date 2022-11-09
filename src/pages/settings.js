@@ -55,7 +55,7 @@ const Settings = () => {
 							<SetForm title="Change Profile Picture" caption="Choose a new display picture for your account" component1={<img src={assets.avatar} width="100px" alt="" />} />
 							<SetForm title="Full Name" caption="Customize your account name" component1={<Input label="First Name" />} component2={<Input label="Last Name" />} />
 							<SetForm title="Email Address" caption="Change your email address" component1={<Input label="Email address" />} />
-							<SetForm title="Phone Number" caption="Change your Phone Number" component1={<Input label="Phone Number" />} />
+							<SetForm title="Phone Number" caption="Change your Phone Number" component1={<Input label="Phone Number" type="number" />} />
 							<SetForm title="Social media" caption="Add social media accounts" component1={<Input label="Twitter" />} component2={<Input label="Instagram" />} />
 							<SetForm
 								component1={
@@ -74,7 +74,7 @@ const Settings = () => {
 				{tab === "security" ? (
 					<div className="container-fluid  content">
 						<div className="row profile gap-0">
-							<SetForm title="Password" caption="Change your current Password" component1={<Input label="Twitter" type="password" />} />
+							<SetForm title="Password" caption="Change your current Password" component1={<Input label="Password" type="password" />} />
 							<SetForm
 								component1={
 									<button type="button" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
