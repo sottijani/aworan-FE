@@ -38,6 +38,8 @@ a {
 body {
 	// font-weight: $aworan-font-400;
 	color: $aworan-sec;
+	background: #EFF4F9;
+
 }
 
 a {
@@ -477,5 +479,34 @@ select {
 		}
 	}
 
+}
 
+.auth {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.4rem;
+
+	input {
+		border: 1px solid #E8EBF4;
+	}
+
+	label {
+		color: #8A99AA;
+		font-weight: 500;
+	}
+
+	form {
+		width: 48.4rem;
+		max-width: 95%;
+		padding: 5rem 3rem;
+
+
+		p {
+			margin: 3.5rem 0;
+			color: #323D59;
+			font-size: 2.4rem;
+		}
+	}
 }
