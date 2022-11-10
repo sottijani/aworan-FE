@@ -1,8 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import assets from "../js/assets";
 import { Input } from "./signup";
 
 const Signin = () => {
+	const [creator, setCreator] = useState("");
+	const checkCreator = (e) => setCreator(e.target.checked);
 	return (
 		<Fragment>
 			<div className="auth">
@@ -16,8 +18,21 @@ const Signin = () => {
 
 						<Input label="Password" type="password" id="password" />
 					</div>
-					<button className="round-ter p-3 d-bg-blue border-0 w-100 text-white mt-5 fw-bold">Login</button>
-					<span className="text-center d-block p-3">Don't have an account? Register</span>
+					<label htmlFor="create" className="d-flex justify-content-center align-items-center py-2 mt-3" role="button">
+						<input type="checkbox" className="border-0 me-2" id="create" onChange={checkCreator} />
+						login as a creator
+					</label>
+					{!creator ? (
+						<button className="round-ter p-3 d-bg-blue border-0 w-100 text-white my-3 fw-bold">Login</button>
+					) : (
+						<button className="round-ter p-3 d-bg-blue border-0 w-100 text-white my-3 fw-bold">Login as a Creator </button>
+					)}
+					<span className="text-center d-block p-3">
+						Don't have an account?{" "}
+						<a href="/#" role="button" className="text-primary">
+							Register
+						</a>
+					</span>
 				</form>
 			</div>
 		</Fragment>
