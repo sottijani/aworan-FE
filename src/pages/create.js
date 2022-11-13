@@ -1,15 +1,33 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import assets from "../js/assets";
+import httpClient from "../js/request";
 const Create = () => {
 	const [currentState, setCurrentState] = useState("success");
+	const { post, get } = httpClient;
+	const [data, setData] = useState({});
 	const fileTypes = ["JPEG", "PNG", "GIF"];
-	const handleChange = (file) => {
+
+	const handleFile = (file) => {
 		if (file) console.log(file);
 	};
+	const handleInput = (ev) => {
+		setData({ ...data, [ev.target.name]: ev.target.value });
+	};
 
-	// const changeState = (v) => setCurrentState(v);
+	const analytics = async () => {
+		const res = await get("analytics", {
+			/** auth coming soon */
+		});
+		console.log(res);
+	};
 
+	const uploadImage = async () => {
+		const res = await post("upload", data, {
+			/** auth coming soon */
+		});
+	};
 	return (
 		<div className="create">
 			<p className="apt-4 mb-0 apb-4 font-700 font-22">Create</p>
@@ -18,7 +36,7 @@ const Create = () => {
 					{currentState === "upload" ? (
 						<>
 							<FileUploader
-								handleChange={handleChange}
+								handleChange={handleFile}
 								name="file"
 								types={fileTypes}
 								classes="file "
@@ -54,11 +72,11 @@ const Create = () => {
 								<div className="d-flex justify-content-between">
 									<div>
 										<label className="me-5">Photo title</label>
-										<input className="p-3 round-ter " />
+										<input className="p-3 round-ter " name="title" onChange={handleInput} />
 									</div>
 									<div>
 										<label className="me-5">Select category</label>
-										<input className="p-3 round-ter " />
+										<input className="p-3 round-ter " name="category" onChange={handleInput} />
 									</div>
 								</div>
 
@@ -74,8 +92,12 @@ const Create = () => {
 								</div>
 							</div>
 							<div className="position-absolute text-end w-100 bottom-0 px-5">
-								<button className="bg-white border-0 round-ter p-3 px-5 me-md-5 mb-4 mb-md-0 d-blue-sec">Back</button>
-								<button className="d-bg-blue border-0 px-5 text-wite round-ter p-3 text-white">Proceed</button>
+								<button type="button" className="bg-white border-0 round-ter p-3 px-5 me-md-5 mb-4 mb-md-0 d-blue-sec">
+									Back
+								</button>
+								<button type="button" className="d-bg-blue border-0 px-5 text-wite round-ter p-3 text-white" onClick={() => uploadImage}>
+									Proceed
+								</button>
 							</div>
 						</>
 					) : (

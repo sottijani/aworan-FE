@@ -7,7 +7,7 @@ const post = async (path, data, auth = "") => {
 		headers: { "content-type": "application/json", "autorization": `Bearer ${auth}` },
 	});
 
-	return res.json();
+	return await res.json();
 };
 
 const get = async (path, auth) => {
@@ -16,7 +16,7 @@ const get = async (path, auth) => {
 		headers: { "content-type": "application/json", "autorization": `Bearer ${auth}` },
 	});
 
-	return res.json();
+	return await res.json();
 };
 
 const put = async (path, data, auth) => {
@@ -26,7 +26,7 @@ const put = async (path, data, auth) => {
 		headers: { "content-type": "application/json", "autorization": `Bearer ${auth}` },
 	});
 
-	return res.json();
+	return await res.json();
 };
 
 const remove = async (path, auth) => {
@@ -35,7 +35,7 @@ const remove = async (path, auth) => {
 		headers: { "content-type": "application/json", "autorization": `Bearer ${auth}` },
 	});
 
-	return res.json();
+	return await res.json();
 };
 
 const httpClient = { post, get, put, remove };

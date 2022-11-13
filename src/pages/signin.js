@@ -11,11 +11,10 @@ const Signin = () => {
 		setData({ ...data, [ev.target.name]: ev.target.value });
 	};
 
-	const login = async (ev) => {
+	const login = (ev) => {
 		ev.preventDefault();
-		const sentData = data;
 		const { post } = httpClient;
-		const res = await post("sigin", sentData);
+		const res = post("sigin", data);
 		console.log(res);
 	};
 

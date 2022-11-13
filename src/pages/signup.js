@@ -10,11 +10,11 @@ const Signup = () => {
 	const handleInput = (ev) => {
 		setData({ ...data, [ev.target.name]: ev.target.value });
 	};
-	const register = async (ev) => {
+	const register = (ev) => {
 		ev.preventDefault();
 		const sentData = data;
 		const { post } = httpClient;
-		const res = await post("sigin", sentData);
+		const res = post("sigin", sentData);
 		console.log(res);
 	};
 	return (

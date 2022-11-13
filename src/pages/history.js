@@ -1,7 +1,30 @@
-import { Fragment } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import { Fragment, useEffect } from "react";
 import assets from "../js/assets";
+import httpClient from "../js/request";
 
 const History = () => {
+	const { get, remove, put } = httpClient;
+	const getAllImages = async () => {
+		const res = await get("uploads/creator");
+		console.log(res);
+	};
+
+	const editImage = async (id) => {
+		const res = await put("uploads/" + id);
+		console.log(res);
+	};
+
+	const deleteImage = async (id) => {
+		const res = await remove("upload/remove" + id);
+		console.log(res);
+	};
+
+	useEffect(() => {
+		getAllImages();
+	}, []);
+
 	return (
 		<Fragment>
 			<div className="settings">

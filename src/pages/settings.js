@@ -1,11 +1,38 @@
 import { useState } from "react";
 import assets from "../js/assets";
+import httpClient from "../js/request";
 
 const Settings = () => {
 	const [tab, setTab] = useState("profile");
+	const [data, setData] = useState({});
+	const { put } = httpClient;
 
 	const changeTab = (v) => {
 		setTab(v);
+	};
+
+	const handleInput = (ev) => {
+		setData({ ...data, [ev.target.name]: ev.target.value });
+	};
+
+	const updateProfile = (ev) => {
+		ev.preventDefault();
+
+		const res = put("user", data, "auth");
+		console.log(res);
+	};
+
+	// eslint-disable-next-line no-unused-vars
+	const uploadPic = async () => {
+		const formData = new FormData();
+		formData.append("img", "");
+		const res = await fetch("profile/pic", {
+			method: "PUT",
+			headers: {},
+			body: formData,
+		});
+		const result = await res.json();
+		console.log(result);
 	};
 
 	return (
@@ -50,40 +77,59 @@ const Settings = () => {
 
 				{/* profile details */}
 				{tab === "profile" ? (
-					<div className="container-fluid  content">
-						<div className="row profile gap-0">
-							<SetForm title="Change Profile Picture" caption="Choose a new display picture for your account" component1={<img src={assets.avatar} width="100px" alt="" />} />
-							<SetForm title="Full Name" caption="Customize your account name" component1={<Input label="First Name" />} component2={<Input label="Last Name" />} />
-							<SetForm title="Email Address" caption="Change your email address" component1={<Input label="Email address" />} />
-							<SetForm title="Phone Number" caption="Change your Phone Number" component1={<Input label="Phone Number" type="number" />} />
-							<SetForm title="Social media" caption="Add social media accounts" component1={<Input label="Twitter" />} component2={<Input label="Instagram" />} />
-							<SetForm
-								component1={
-									<button type="button" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
-										Save Changes
-									</button>
-								}
-							/>
+					<form onSubmit={updateProfile}>
+						<div className="container-fluid  content">
+							<div className="row profile gap-0">
+								<SetForm title="Change Profile Picture" caption="Choose a new display picture for your account" component1={<img src={assets.avatar} width="100px" alt="" />} />
+
+								<SetForm
+									title="Full Name"
+									caption="Customize your account name"
+									component1={<Input label="First Name" />}
+									component2={<Input label="Last Name" name="last_name" onChange={handleInput} />}
+								/>
+
+								<SetForm title="Email Address" caption="Change your email address" component1={<Input label="Email address" name="email" onChange={handleInput} />} />
+
+								<SetForm title="Phone Number" caption="Change your Phone Number" component1={<Input label="Phone Number" type="number" name="phone" onChange={handleInput} />} />
+
+								<SetForm
+									title="Social media"
+									caption="Add social media accounts"
+									component1={<Input label="Twitter" name="twitter" />}
+									component2={<Input label="Instagram" name="instagram" onChange={handleInput} />}
+								/>
+
+								<SetForm
+									component1={
+										<button type="button" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
+											Save Changes
+										</button>
+									}
+								/>
+							</div>
 						</div>
-					</div>
+					</form>
 				) : (
 					""
 				)}
 
 				{/* security */}
 				{tab === "security" ? (
-					<div className="container-fluid  content">
-						<div className="row profile gap-0">
-							<SetForm title="Password" caption="Change your current Password" component1={<Input label="Password" type="password" />} />
-							<SetForm
-								component1={
-									<button type="button" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
-										Save Changes
-									</button>
-								}
-							/>
+					<form>
+						<div className="container-fluid  content">
+							<div className="row profile gap-0">
+								<SetForm title="Password" caption="Change your current Password" component1={<Input label="Password" type="password" />} />
+								<SetForm
+									component1={
+										<button type="button" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
+											Save Changes
+										</button>
+									}
+								/>
+							</div>
 						</div>
-					</div>
+					</form>
 				) : (
 					""
 				)}

@@ -1,8 +1,35 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 import { homeImage } from "../js/assets";
+import httpClient from "../js/request";
 
 const HomePage = () => {
 	const [preview, setPreview] = useState("");
+	const [images, setImages] = useState([]);
+	const { post, get } = httpClient;
+	const getAllImages = async () => {
+		const res = await get("uploads");
+		console.log(res);
+	};
+
+	const download = async (data) => {
+		const res = await post("download", data, {
+			/** pending to add */
+		});
+		console.log(res);
+	};
+
+	const bookmark = async (data) => {
+		const res = await post("bookmark", data, {
+			/** pending to add */
+		});
+		console.log(res);
+	};
+
+	useEffect(() => {
+		getAllImages();
+	}, []);
 	return (
 		<>
 			<div className="carousel d-flex flex-column justify-content-center" key="corousel">
