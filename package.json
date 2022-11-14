@@ -18,6 +18,7 @@
 		"recharts": "^2.1.16",
 		"web-vitals": "^2.1.4"
 	},
+	"proxy": "https://res.cloudinary.com/dd1zbrj8l/image/upload/v1660036816/",
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",

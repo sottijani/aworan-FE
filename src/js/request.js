@@ -1,18 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppContext from "../context/appContext";
 
-const baseUrl = " http://localhost:5000/";
+export const baseUrl = "http://localhost:5000/";
 
 export const useCustomeNavigate = () => {
 	const navigate = useNavigate();
 	const [message, setMessage] = useState("");
+	const { token } = useContext(AppContext);
 
-	const post = async (path, data, auth = "") => {
+	const post = async (path, data) => {
 		const res = await fetch(baseUrl + path, {
 			method: "POST",
 			body: JSON.stringify(data),
-			headers: { "content-type": "application/json", "authorization": `Bearer ${auth}` },
+			headers: { "content-type": "application/json", "authorization": `Bearer ${token}` },
 		});
 		const status = res.status;
 		const response = await res.json();
@@ -24,7 +26,7 @@ export const useCustomeNavigate = () => {
 	const get = async (path, auth) => {
 		const res = await fetch(baseUrl + path, {
 			method: "GET",
-			headers: { "content-type": "application/json", "authorization": `Bearer ${auth}` },
+			headers: { "content-type": "application/json", "authorization": `Bearer ${token}` },
 		});
 
 		const status = res.status;
@@ -33,11 +35,11 @@ export const useCustomeNavigate = () => {
 		return { status, response };
 	};
 
-	const put = async (path, data, auth) => {
+	const put = async (path, data) => {
 		const res = await fetch(baseUrl + path, {
 			method: "PUT",
 			body: JSON.stringify(data),
-			headers: { "content-type": "application/json", "authorization": `Bearer ${auth}` },
+			headers: { "content-type": "application/json", "authorization": `Bearer ${token}` },
 		});
 
 		const status = res.status;
@@ -49,7 +51,7 @@ export const useCustomeNavigate = () => {
 	const remove = async (path, auth) => {
 		const res = await fetch(baseUrl + path, {
 			method: "DELETE",
-			headers: { "content-type": "application/json", "authorization": `Bearer ${auth}` },
+			headers: { "content-type": "application/json", "authorization": `Bearer ${token}` },
 		});
 
 		const status = res.status;

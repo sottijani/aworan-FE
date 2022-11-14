@@ -446,6 +446,24 @@ select {
 			margin-bottom: 11.2rem;
 		}
 
+		.img-prev {
+			width: 54.5rem;
+			height: 38.2rem;
+			overflow: hidden;
+			border-radius: 1rem;
+			margin: auto;
+			height: 100%;
+			object-fit: cover;
+			margin-bottom: 5rem;
+			background: rebeccapurple;
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+
 		.preview {
 			label {
 				color: #8A99AA;
@@ -453,8 +471,9 @@ select {
 			}
 
 			span,
-			input {
-				border: 1px solid #333333;
+			input,
+			select {
+				border: 1px solid #33333353;
 				font-size: 1.4rem;
 				background: #fff;
 			}
