@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import assets from "../js/assets";
-import httpClient from "../js/request";
+import { useCustomeNavigate } from "../js/request";
 const Create = () => {
 	const [currentState, setCurrentState] = useState("success");
-	const { post, get } = httpClient;
+	const { post, get } = useCustomeNavigate();
 	const [data, setData] = useState({});
 	const fileTypes = ["JPEG", "PNG", "GIF"];
 

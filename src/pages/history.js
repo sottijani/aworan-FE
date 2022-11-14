@@ -2,10 +2,10 @@
 /* eslint-disable no-unused-vars */
 import { Fragment, useEffect } from "react";
 import assets from "../js/assets";
-import httpClient from "../js/request";
+import { useCustomeNavigate } from "../js/request";
 
 const History = () => {
-	const { get, remove, put } = httpClient;
+	const { get, remove, put } = useCustomeNavigate();
 	const getAllImages = async () => {
 		const res = await get("uploads/creator");
 		console.log(res);

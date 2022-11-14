@@ -4,12 +4,13 @@ import { toast } from "react-toastify";
 import AppContext from "../context/appContext";
 
 import assets from "../js/assets";
-import httpClient from "../js/request";
+import { useCustomeNavigate } from "../js/request";
 import { Input } from "./signup";
 
 const Signin = () => {
 	const { login: lg } = useContext(AppContext);
 	const navigate = useNavigate();
+	const { post } = useCustomeNavigate();
 	// const [creator, setCreator] = useState("");
 	const [data, setData] = useState({});
 	// const checkCreator = (e) => setCreator(e.target.checked);
@@ -20,12 +21,15 @@ const Signin = () => {
 	const login = async (ev) => {
 		ev.preventDefault();
 		// console.log(data);
-		const { post } = httpClient;
+
 		const { status, response } = await post("signin", data);
+		console.log(response);
+		// return;
+
 		if (status === 200) {
-			lg(response.token);
+			lg(response.token, response.role);
 			toast(response.message);
-			navigate("/dashboard");
+			navigate("/dashboard", { replace: true });
 		}
 	};
 

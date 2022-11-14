@@ -2,7 +2,7 @@ import assets from "../js/assets";
 
 const Footer = () => {
 	return (
-		<>
+		<div>
 			<article className="footer-1 d-flex align-items-center" key="ieo">
 				<div className="aworan-container p-footer ">
 					<div className="row">
@@ -98,7 +98,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</article>
-		</>
+		</div>
 	);
 };
 

@@ -1,12 +1,16 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import AppContext from "../context/appContext";
 import assets from "../js/assets";
-import httpClient from "../js/request";
+import { useCustomeNavigate } from "../js/request";
 
 const Settings = () => {
+	const { token } = useContext(AppContext);
 	const [tab, setTab] = useState("profile");
 	const [data, setData] = useState({});
-	const { put } = httpClient;
-
+	const [userData, setUserData] = useState({});
+	const { put, get } = useCustomeNavigate();
 	const changeTab = (v) => {
 		setTab(v);
 	};
@@ -15,11 +19,32 @@ const Settings = () => {
 		setData({ ...data, [ev.target.name]: ev.target.value });
 	};
 
-	const updateProfile = (ev) => {
+	const updateProfile = async (ev) => {
+		ev.preventDefault();
+		if (Object.keys(data).length) {
+			const { status, response } = await put("user", data, token);
+			toast(response.message);
+			if (status === 200) console.log(response);
+		}
+	};
+
+	const changePassword = async (ev) => {
 		ev.preventDefault();
 
-		const res = put("user", data, "auth");
-		console.log(res);
+		if (Object.keys(data).length) {
+			console.log(data);
+			const { status, response } = await put("user/password", data, token);
+			toast(response.message);
+			if (status === 200) {
+				document.getElementById("password").value = "";
+				console.log(response);
+			}
+		}
+	};
+
+	const getProfile = async () => {
+		const { status, response } = await get("profile", token);
+		if (status === 200) setUserData(response.data);
 	};
 
 	// eslint-disable-next-line no-unused-vars
@@ -34,6 +59,10 @@ const Settings = () => {
 		const result = await res.json();
 		console.log(result);
 	};
+
+	useEffect(() => {
+		getProfile();
+	}, []);
 
 	return (
 		<div className="settings">
@@ -57,7 +86,7 @@ const Settings = () => {
 					<div className="container-fluid  content">
 						<div className="row">
 							<button className="col-md-3 round-ter d-flex flex-column justify-content-center align-items-center bank bg-white" data-bs-target="#addBank" data-bs-toggle="modal">
-								<i class="fa-solid fa-building-columns"></i>
+								<i className="fa-solid fa-building-columns"></i>
 								<span className="py-1">Add bank account </span>
 							</button>
 							<div className="col-md-3 round-ter del-bank border-0 d-flex justify-content-between flex-column">
@@ -85,13 +114,21 @@ const Settings = () => {
 								<SetForm
 									title="Full Name"
 									caption="Customize your account name"
-									component1={<Input label="First Name" />}
-									component2={<Input label="Last Name" name="last_name" onChange={handleInput} />}
+									component1={<Input label="First Name" name="first_name" defaultValue={userData.first_name} onChange={handleInput} />}
+									component2={<Input label="Last Name" name="last_name" defaultValue={userData.last_name} onChange={handleInput} />}
 								/>
 
-								<SetForm title="Email Address" caption="Change your email address" component1={<Input label="Email address" name="email" onChange={handleInput} />} />
+								<SetForm
+									title="Email Address"
+									caption="Change your email address"
+									component1={<Input label="Email address" name="email" defaultValue={userData.email} onChange={handleInput} disabled />}
+								/>
 
-								<SetForm title="Phone Number" caption="Change your Phone Number" component1={<Input label="Phone Number" type="number" name="phone" onChange={handleInput} />} />
+								<SetForm
+									title="Phone Number"
+									caption="Change your Phone Number"
+									component1={<Input label="Phone Number" type="number" name="phone" defaultValue={userData.phone} onChange={handleInput} />}
+								/>
 
 								<SetForm
 									title="Social media"
@@ -102,7 +139,7 @@ const Settings = () => {
 
 								<SetForm
 									component1={
-										<button type="button" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
+										<button type="submit" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
 											Save Changes
 										</button>
 									}
@@ -116,13 +153,13 @@ const Settings = () => {
 
 				{/* security */}
 				{tab === "security" ? (
-					<form>
+					<form onSubmit={changePassword}>
 						<div className="container-fluid  content">
 							<div className="row profile gap-0">
-								<SetForm title="Password" caption="Change your current Password" component1={<Input label="Password" type="password" />} />
+								<SetForm title="Password" caption="Change your current Password" component1={<Input label="Password" type="password" name="password" id="password" onChange={handleInput} />} />
 								<SetForm
 									component1={
-										<button type="button" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
+										<button type="submit" className="d-bg-blue p-3 border-0 text-white round-ter w-50">
 											Save Changes
 										</button>
 									}

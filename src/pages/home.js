@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { homeImage } from "../js/assets";
-import httpClient from "../js/request";
+import { useCustomeNavigate } from "../js/request";
 
 const HomePage = () => {
 	const [preview, setPreview] = useState("");
 	const [images, setImages] = useState([]);
-	const { post, get } = httpClient;
+	const { post, get } = useCustomeNavigate();
 	const getAllImages = async () => {
 		const res = await get("uploads");
 		console.log(res);
