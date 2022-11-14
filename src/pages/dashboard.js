@@ -1,7 +1,11 @@
-import { Fragment } from "react";
-import { LineChart, Line, XAxis, YAxis,  Legend, ResponsiveContainer } from "recharts";
+import { Fragment, useContext } from "react";
+import { LineChart, Line, XAxis, YAxis, Legend, ResponsiveContainer } from "recharts";
+import AppContext from "../context/appContext";
 import { data } from "../js/assets";
 const Dashboard = () => {
+	const { token } = useContext(AppContext);
+	console.log(token);
+
 	return (
 		// <Fragment>
 		<div className="settings dashboard">

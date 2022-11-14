@@ -22,7 +22,7 @@ const History = () => {
 	};
 
 	useEffect(() => {
-		getAllImages();
+		// getAllImages();
 	}, []);
 
 	return (
@@ -44,42 +44,46 @@ const History = () => {
 					<div className="content container-fluid">
 						<div className="row">
 							<table style={{ width: "100%" }}>
-								<tr className="text-uppercase">
-									<th>Photo</th>
-									<th>Title</th>
-									<th>Status</th>
-									<th>Category</th>
-									<th>Date</th>
-									<th></th>
-								</tr>
-								{[1, 2, 3].map((e) => (
-									<tr>
-										<td>
-											<div className="img round-ter">
-												<img src={assets.preview} alt="" />
-											</div>
-										</td>
-										<td>A Happy man</td>
-										<td>Acceted</td>
-										<td>Expression</td>
-										<td>Date</td>
-										<td>
-											<div class="dropdown">
-												<button class=" p-2 px-3 bg-transparent round-ter dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-													<i class="fa-solid fa-ellipsis"></i>
-												</button>
-												<ul class="dropdown-menu mt-3" aria-labelledby="dropdownMenuButton1">
-													<span className="d-block font-14 dropdown-item " role="button">
-														Edit Photo
-													</span>
-													<span className="d-block dropdown-item font-14" role="button">
-														Delete Photo
-													</span>
-												</ul>
-											</div>
-										</td>
+								<thead>
+									<tr className="text-uppercase">
+										<th>Photo</th>
+										<th>Title</th>
+										<th>Status</th>
+										<th>Category</th>
+										<th>Date</th>
+										<th></th>
 									</tr>
-								))}
+								</thead>
+								<tbody>
+									{[1, 2, 3].map((e) => (
+										<tr>
+											<td>
+												<div className="img round-ter">
+													<img src={assets.preview} alt="" />
+												</div>
+											</td>
+											<td>A Happy man</td>
+											<td>Acceted</td>
+											<td>Expression</td>
+											<td>Date</td>
+											<td>
+												<div className="dropdown">
+													<button className=" p-2 px-3 bg-transparent round-ter dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+														<i className="fa-solid fa-ellipsis"></i>
+													</button>
+													<ul className="dropdown-menu mt-3" aria-labelledby="dropdownMenuButton1">
+														<span className="d-block font-14 dropdown-item " role="button">
+															Edit Photo
+														</span>
+														<span className="d-block dropdown-item font-14" role="button">
+															Delete Photo
+														</span>
+													</ul>
+												</div>
+											</td>
+										</tr>
+									))}
+								</tbody>
 							</table>
 						</div>
 					</div>

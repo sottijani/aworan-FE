@@ -301,6 +301,12 @@ select {
 			display: block;
 		}
 	}
+
+	a.active {
+		background: #1A79D1;
+		color: #fff;
+		font-weight: 700;
+	}
 }
 
 .cont-container {

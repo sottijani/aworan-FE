@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
+import Footer from "../components/footer";
+import Navbar from "../components/navbar";
 import { homeImage } from "../js/assets";
 import httpClient from "../js/request";
 
@@ -28,10 +30,11 @@ const HomePage = () => {
 	};
 
 	useEffect(() => {
-		getAllImages();
+		// getAllImages();
 	}, []);
 	return (
 		<>
+			<Navbar />
 			<div className="carousel d-flex flex-column justify-content-center" key="corousel">
 				<p className="text-white text-center font-48 font-700">One platform,a thousand ways to be seen!</p>
 				<div className="d-flex justify-content-center my-5">
@@ -124,6 +127,7 @@ const HomePage = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 };

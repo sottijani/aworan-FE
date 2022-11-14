@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import assets from "../js/assets.js";
 const Navbar = () => {
 	return (
@@ -6,12 +7,13 @@ const Navbar = () => {
 				<nav className="d-flex align-items-center">
 					<img src={assets.logo} alt="logo" />
 					<div className="ms-auto aworan-nav">
-						<a href="/#">FAQ</a>
-						<a href="/#">Legal</a>
-						<a href="/#">Login</a>
-						<a href="/#" className="d-bg-blue text-white round-ter" role="button">
+						<NavLink to="/">FAQ</NavLink>
+						<NavLink to="/">Legal</NavLink>
+						<NavLink to="/signin">Login</NavLink>
+						<NavLink to="/">FAQ</NavLink>
+						<NavLink to="/signup" className="d-bg-blue text-white round-ter" role="button">
 							Register
-						</a>
+						</NavLink>
 					</div>
 				</nav>
 			</div>

@@ -1,8 +1,10 @@
 import { Fragment, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import assets from "../js/assets";
 import httpClient from "../js/request";
 
 const Signup = () => {
+	const navigate = useNavigate();
 	const [creator, setCreator] = useState("");
 	const [data, setData] = useState({});
 
@@ -22,7 +24,7 @@ const Signup = () => {
 			<div className="auth">
 				<form className="bg-white round-ter" onSubmit={register}>
 					<div className="img text-center">
-						<img src={assets.logo} alt="" />
+						<img src={assets.logo} alt="" role="button" onClick={() => navigate("/")} />
 					</div>
 					<p className="text-center font-700">Sign Up to get Started</p>
 					<div className="row" gap-2>
@@ -47,9 +49,9 @@ const Signup = () => {
 
 					<span className="text-center d-block p-3">
 						Have an account?{" "}
-						<a className="text-primary" href="/#">
+						<Link className="text-primary" to="/signin">
 							Log In
-						</a>
+						</Link>
 					</span>
 				</form>
 			</div>

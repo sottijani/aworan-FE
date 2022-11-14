@@ -14,20 +14,24 @@ const Payment = () => {
 					<div className="content container-fluid">
 						<div className="row">
 							<table style={{ width: "100%" }}>
-								<tr className="text-uppercase">
-									<th>Amount</th>
-									<th>Status</th>
-									<th>Date</th>
-									<th>Reference Number</th>
-								</tr>
-								{[1, 2, 3].map((e) => (
-									<tr>
-										<td>#2000</td>
-										<td>Completed</td>
-										<td>20-10-2022</td>
-										<td>6IYIH3AU3J</td>
+								<thead>
+									<tr className="text-uppercase">
+										<th>Amount</th>
+										<th>Status</th>
+										<th>Date</th>
+										<th>Reference Number</th>
 									</tr>
-								))}
+								</thead>
+								<tbody>
+									{[1, 2, 3].map((e) => (
+										<tr>
+											<td>#2000</td>
+											<td>Completed</td>
+											<td>20-10-2022</td>
+											<td>6IYIH3AU3J</td>
+										</tr>
+									))}
+								</tbody>
 							</table>
 						</div>
 					</div>
