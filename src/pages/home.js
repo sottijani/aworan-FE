@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { homeImage } from "../js/assets";
@@ -10,27 +11,32 @@ const HomePage = () => {
 	const [preview, setPreview] = useState("");
 	const [images, setImages] = useState([]);
 	const { post, get } = useCustomeNavigate();
+	const [data, setData] = useState({});
+
+	// const holder = process.env.REACT_APP_CLOUD_ORIGINAL;
 	const getAllImages = async () => {
-		const res = await get("uploads");
-		console.log(res);
+		const { response, status } = await get("uploads");
+		if (status === 200) setImages(response.data);
+		console.log(response);
 	};
 
-	const download = async (data) => {
-		const res = await post("download", data, {
-			/** pending to add */
-		});
-		console.log(res);
-	};
+	// const download = async () => {
+	// 	const res = await post("download", data, {
+	// 		/** pending to add */
+	// 	});
+	// 	console.log(res);
+	// };
 
-	const bookmark = async (data) => {
-		const res = await post("bookmark", data, {
-			/** pending to add */
-		});
-		console.log(res);
+	const bookmark = async () => {
+		// console.log(data);
+		// return;
+		const { response, status } = await post("bookmark/", data);
+		if (status === 200) toast("bookmark added");
+		else toast(response.message);
 	};
 
 	useEffect(() => {
-		// getAllImages();
+		getAllImages();
 	}, []);
 	return (
 		<>
@@ -60,22 +66,49 @@ const HomePage = () => {
 					</a>
 				))}
 			</div>
-			<div className="gallery aworan-container" key="gallery">
-				{homeImage.map((pic, i) => (
-					<div className="position-relative gallery-cont" onClick={() => setPreview(pic)}>
-						<div className="text-end position-absolute top-0 left-0 w-100 p-3 pic-meta">
-							<i className="fa-regular fa-heart p-3 bg-white border me-3 round-ter font-500 " role="button"></i>
-							<i className="fa-solid fa-plus font-700 p-3 bg-white border round-ter" role="button"></i>
-						</div>
-						<img src={pic} alt={i} loading="lazy" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button" />
-						<div className="d-flex justify-content-between align-items-center position-absolute bottom-0 left-0 w-100 p-3 pic-meta">
-							<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
-								<img src={pic} width="100%" alt="" className="d-block me-4" />
+			<div className="gallery aworan-container my-5" key="gallery">
+				{images.length ? (
+					images.map((image, i) => (
+						<div
+							className="position-relative gallery-cont"
+							onClick={() => {
+								setPreview(image.img_url);
+								console.log({ "img_id": image.id, "img_url": image.img_url });
+								setData({ "img_id": image.id, "img_url": image.img_url });
+							}}
+						>
+							<div className={`text-end position-absolute top-0 left-0 w-100 p-3 pic-meta `}>
+								<i className="fa-regular fa-heart p-3 bg-white border me-3 round-ter font-500 " role="button" onClick={bookmark}></i>
+								<i className="fa-solid fa-plus font-700 p-3 bg-white border round-ter" role="button"></i>
 							</div>
-							<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
+							<img src={image.img_url} alt={i} loading="lazy" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button" />
+							<div className="d-flex justify-content-between align-items-center position-absolute bottom-0 left-0 w-100 p-3 pic-meta">
+								<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
+									<img src={image.img_url} width="100%" alt="" className="d-block me-4" />
+								</div>
+								<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
+							</div>
 						</div>
-					</div>
-				))}
+					))
+				) : (
+					<>
+						{homeImage.map((pic, i) => (
+							<div className="position-relative gallery-cont" onClick={() => setPreview(pic)}>
+								<div className="text-end position-absolute top-0 left-0 w-100 p-3 pic-meta">
+									<i className="fa-regular fa-heart p-3 bg-white border me-3 round-ter font-500 " role="button" onClick={bookmark}></i>
+									<i className="fa-solid fa-plus font-700 p-3 bg-white border round-ter" role="button"></i>
+								</div>
+								<img src={pic} alt={i} loading="lazy" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button" />
+								<div className="d-flex justify-content-between align-items-center position-absolute bottom-0 left-0 w-100 p-3 pic-meta">
+									<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
+										<img src={pic} width="100%" alt="" className="d-block me-4" />
+									</div>
+									<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
+								</div>
+							</div>
+						))}
+					</>
+				)}
 			</div>
 
 			{/* modal for image preview */}

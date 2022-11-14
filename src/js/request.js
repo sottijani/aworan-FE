@@ -48,7 +48,7 @@ export const useCustomeNavigate = () => {
 		return { status, response };
 	};
 
-	const remove = async (path, auth) => {
+	const remove = async (path) => {
 		const res = await fetch(baseUrl + path, {
 			method: "DELETE",
 			headers: { "content-type": "application/json", "authorization": `Bearer ${token}` },

@@ -1,11 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Legend, ResponsiveContainer } from "recharts";
 import AppContext from "../context/appContext";
 import { data } from "../js/assets";
+import { useCustomeNavigate } from "../js/request";
 const Dashboard = () => {
-	const { token } = useContext(AppContext);
+	const { get } = useCustomeNavigate();
+	const [analytic, setAnalytics] = useState("");
+	const analytics = async () => {
+		const { status, response } = await get("analytics");
+		if (status === 200) setAnalytics(response);
+	};
 
+	useEffect(() => {
+		analytics();
+	}, []);
 	return (
 		// <Fragment>
 		<div className="settings dashboard">
@@ -15,19 +25,19 @@ const Dashboard = () => {
 					<div className="row ">
 						<div className="col-md-3 p-5 text-center">
 							<span>Photo</span>
-							<p>12</p>
+							<p>{analytic.photos || 0}</p>
 						</div>
 						<div className="col-md-3 p-5 text-center">
 							<span>Downloads</span>
-							<p>12</p>
+							<p>{analytic.downloads || 0}</p>
 						</div>
 						<div className="col-md-3 p-5 text-center">
 							<span>Total Earnings</span>
-							<p>12</p>
+							<p>{analytic.total_earning || 0}</p>
 						</div>
 						<div className="col-md-3 p-5 text-center">
 							<span>Montly Earnings</span>
-							<p>12</p>
+							<p>{analytic.earning || 0}</p>
 						</div>
 						<Fragment>
 							<div className="col-md-4  text-center">
