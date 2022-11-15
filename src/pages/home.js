@@ -23,7 +23,7 @@ const HomePage = () => {
 
 	// const holder = process.env.REACT_APP_CLOUD_ORIGINAL;
 	const getAllImages = async () => {
-		const { response, status } = await get("uploads");
+		const { response, status } = await get("uploads/approved");
 		if (status === 200) setImages(response.data);
 		console.log(response);
 	};
@@ -71,7 +71,7 @@ const HomePage = () => {
 					))}
 				</div>
 			</div>
-			<div className="tag aworan-container d-flex flex-wrap justify-content-between gap-3 align-items-center overflow-auto" key="links">
+			<div className="tag aworan-container d-flex justify-content-between gap-3 align-items-center overflow-auto" key="links">
 				{["All", "Abstract", "Architecture", "Travel", "Experiment", "Animal", "Landscape", "Nature", "3d render"].map((v) => (
 					<a className="btn aworan-padding flex-shrink-0" href="/#">
 						{v}
