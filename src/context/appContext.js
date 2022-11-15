@@ -15,6 +15,7 @@ export const AppProvider = ({ component }) => {
 
 	useEffect(() => {
 		setToken(get("awr_tk"));
+		console.log(get("user_role"));
 		setRole(get("user_role"));
 	}, []);
 	return <AppContext.Provider value={{ token, login, role }}>{component}</AppContext.Provider>;

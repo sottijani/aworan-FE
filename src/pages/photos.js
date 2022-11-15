@@ -1,45 +1,54 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import assets from "../js/assets";
-import { baseUrl, useCustomeNavigate } from "../js/request";
+import { useCustomeNavigate } from "../js/request";
 
-const History = () => {
-	const { get, remove, put } = useCustomeNavigate();
+const Photos = () => {
 	const [uploads, setUploads] = useState([]);
-	const [isChanged, setIsChanged] = useState(false);
-	const [id, setId] = useState("");
+	const [all, setAll] = useState([]);
+	const { get, remove, put } = useCustomeNavigate();
 
-	// const cloudinaryUrl = "https://res.cloudinary.com/dd1zbrj8l/image/upload/c_thumb,w_100,h_50,g_face/v1660036816/";
 	const getAllImages = async () => {
-		const { status, response } = await get("uploads/creator");
-		if (status === 200) setUploads(response.data);
-		else toast(response.message);
+		const { status, response } = await get("uploads");
+		if (status === 200) {
+			setUploads(response.data);
+			setAll(response.data);
+		} else toast(response.message);
 	};
 
-	const editImage = async (id) => {
-		const res = await put("uploads/" + id);
-		console.log(res);
-	};
+	const filter = (phrase) => {
+		if (phrase === "") {
+			setUploads(all);
+			return;
+		}
 
-	const deleteImage = async () => {
-		console.log(id);
-		const { status, response } = await remove("upload/remove/" + id);
-		toast(response.message);
-		if (status === 200) setIsChanged(!isChanged);
+		const photoObj = all.filter((e) => e.status === phrase);
+		if (photoObj.length) setUploads(photoObj);
 	};
 
 	useEffect(() => {
 		getAllImages();
-	}, [isChanged]);
+	}, []);
 
 	return (
 		<Fragment>
 			<div className="settings">
 				<p className="apt-4 mb-0 apb-4 font-700 font-22">History</p>
 				<div className="bg-white round-ter " style={{ minHeight: "76.2rem" }}>
-					<div className="tabs d-flex">
+					{/* <div className="tabs d-flex">
+						
+					</div> */}
+					<div className="tabs d-flex align-items-center">
+						<span role="button" onClick={() => filter("")}>
+							All
+						</span>
+						<span role="button" onClick={() => filter("approved")}>
+							Approved
+						</span>
+						<span role="button" onClick={() => filter("pending")}>
+							Pending
+						</span>
 						<span className="border-0">
 							<input type="search" className=" round-ter p-3 " placeholder="Search for photo" />
 						</span>
@@ -78,14 +87,14 @@ const History = () => {
 											<td>
 												<div className="dropdown">
 													<button className=" p-2 px-3 bg-transparent round-ter dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-														<i className="fa-solid fa-ellipsis" onClick={() => setId(e.id)}></i>
+														<i className="fa-solid fa-ellipsis"></i>
 													</button>
 													<ul className="dropdown-menu mt-3 p-0" aria-labelledby="dropdownMenuButton1">
 														<span className="d-block font-14 dropdown-item p-2 " role="button">
-															Edit Photo
+															View
 														</span>
-														<span className="d-block dropdown-item font-14 p-2" role="button" onClick={deleteImage}>
-															Delete Photo
+														<span className="d-block p-2 dropdown-item font-14" role="button">
+															Approve
 														</span>
 													</ul>
 												</div>
@@ -102,4 +111,4 @@ const History = () => {
 	);
 };
 
-export default History;
+export default Photos;

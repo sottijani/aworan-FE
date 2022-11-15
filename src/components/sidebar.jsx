@@ -6,6 +6,7 @@ import assets from "../js/assets";
 
 const Sidebar = () => {
 	const { role } = useContext(AppContext);
+	console.log(role);
 
 	const activeClass = `${({ isActive }) => (isActive ? "active" : undefined)}}`;
 	const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Sidebar = () => {
 							<p className="font-12 w-100">jonathansmith@gmail.com</p>
 						</div>
 						<div className="links amt-4">
-							{role && role === "creator" ? (
+							{role && role === "creator" && (
 								<Fragment>
 									<NavLink to="/dashboard" className={activeClass} end>
 										<i className="fa-solid fa-chart-line"></i> <span> Dashboard</span>
@@ -41,16 +42,37 @@ const Sidebar = () => {
 										<i className="fa-solid fa-credit-card"></i> <span>Earnings</span>
 									</NavLink>
 								</Fragment>
-							) : (
+							)}
+
+							{role && role === "admin" && (
+								<Fragment>
+									<NavLink to="/dashboard/roles" className={activeClass} end>
+										<i className="fa-solid fa-list-ol"></i> <span> User </span>
+									</NavLink>
+									<NavLink to="/dashboard/categories" className={activeClass} end>
+										<i className="fa-solid fa-ranking-star"></i>
+										<span> Categories </span>
+									</NavLink>
+									<NavLink to="/dashboard/photos" className={activeClass}>
+										<i class="fa-regular fa-images"></i>
+										<span>Photos</span>
+									</NavLink>
+									{/* <NavLink to="/dashboard/history" className={activeClass}>
+										<i className="fa-solid fa-timeline"></i> <span>Photo History</span>
+									</NavLink>
+									<NavLink to="/dashboard/payment" className={activeClass}>
+										<i className="fa-solid fa-credit-card"></i> <span>Earnings</span>
+									</NavLink> */}
+								</Fragment>
+							)}
+
+							{role && role === "user" && (
 								<Fragment>
 									<NavLink to="/" className={activeClass}>
 										<i className="fa-solid fa-download"></i>
 										<span>Downloads</span>
 									</NavLink>
-									<NavLink to="/" className={activeClass}>
-										<i className="fa-solid fa-bookmark"></i>
-										<span>Bookmarks</span>
-									</NavLink>
+
 									<NavLink to="/" className={activeClass}>
 										<i className="fa-solid fa-heart"></i> <span>Favorites</span>
 									</NavLink>

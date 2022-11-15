@@ -13,6 +13,9 @@ import Dashboard from "./pages/dashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Fragment } from "react";
+import Roles from "./pages/roles";
+import Category from "./pages/category";
+import Photos from "./pages/photos";
 
 function App() {
 	return (
@@ -25,6 +28,9 @@ function App() {
 					<Route path="upload" element={<Create />} />
 					<Route path="history" element={<History />} />
 					<Route path="payment" element={<Payment />} />
+					<Route path="roles" element={<Roles />} />
+					<Route path="categories" element={<Category />} />
+					<Route path="photos" element={<Photos />} />
 				</Route>
 				<Route path="/signin" element={<Signin />} />
 				<Route path="/signup" element={<Signup />} />

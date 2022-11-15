@@ -145,8 +145,8 @@ const Settings = () => {
 								<SetForm
 									title="Social media"
 									caption="Add social media accounts"
-									component1={<Input label="Twitter" name="twitter" />}
-									component2={<Input label="Instagram" name="instagram" onChange={handleInput} />}
+									component1={<Input label="Twitter" name="twitter" defaultValue={userData.twitter} onChange={handleInput} />}
+									component2={<Input label="Instagram" name="instagram" defaultValue={userData.instagram} onChange={handleInput} />}
 								/>
 
 								<SetForm
