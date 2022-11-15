@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../context/appContext";
@@ -23,7 +24,7 @@ export const useCustomeNavigate = () => {
 		return { status, response };
 	};
 
-	const get = async (path, auth) => {
+	const get = async (path) => {
 		const res = await fetch(baseUrl + path, {
 			method: "GET",
 			headers: { "content-type": "application/json", "authorization": `Bearer ${token}` },
@@ -60,8 +61,35 @@ export const useCustomeNavigate = () => {
 		return { status, response };
 	};
 
+	const downloadFile = async (filename, cb) => {
+		try {
+			const v = await axios.get(filename, {
+				responseType: "blob",
+				headers: { "authorization": `Bearer ${token}` },
+				onDownloadProgress: (progressEv) => {
+					const { loaded, total } = progressEv;
+					console.log(loaded, total);
+					if (loaded === total) cb();
+				},
+			});
+			const response = await v.data;
+			const blob = new Blob([response], { type: v.headers["content-type"] });
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = url;
+			link.download = url.replace(/^.*[\\/]/, "");
+			link.click();
+
+			setTimeout(() => {
+				link.remove();
+			}, 2000);
+		} catch (error) {
+			return error.response;
+		}
+	};
+
 	useEffect(() => {
 		if (message === "unauthorized") navigate("/signin");
 	}, [message]);
-	return { post, get, put, remove };
+	return { post, get, put, remove, downloadFile };
 };

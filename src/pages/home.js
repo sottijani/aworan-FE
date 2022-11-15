@@ -11,7 +11,7 @@ import { useCustomeNavigate } from "../js/request";
 const HomePage = () => {
 	const [preview, setPreview] = useState("");
 	const [images, setImages] = useState([]);
-	const { post, get } = useCustomeNavigate();
+	const { post, get, downloadFile } = useCustomeNavigate();
 	const [data, setData] = useState({});
 
 	const breakPoint = {
@@ -28,12 +28,16 @@ const HomePage = () => {
 		console.log(response);
 	};
 
-	// const download = async () => {
-	// 	const res = await post("download", data, {
-	// 		/** pending to add */
-	// 	});
-	// 	console.log(res);
-	// };
+	const download = async (imgData) => {
+		const res = await post("download", imgData);
+		console.log(res);
+	};
+
+	const localDownload = async (name, dt) => {
+		console.log(process.env.REACT_APP_CLOUD_ORIGINAL + name, dt);
+		const res = await downloadFile(process.env.REACT_APP_CLOUD_ORIGINAL + name, download(dt));
+		console.log(res);
+	};
 
 	const bookmark = async () => {
 		// console.log(data);
@@ -81,7 +85,21 @@ const HomePage = () => {
 			<div className="gallery aworan-container my-5" key="gallery">
 				<Masonry breakpointCols={breakPoint} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
 					{images.length ? (
-						images.map((image, i) => <GalleryContainer setPreview={() => setDataObj(image)} img={image.img_url} i={i} click={bookmark} />)
+						images.map((image, i) => (
+							<GalleryContainer
+								setPreview={() => setDataObj(image)}
+								img={image.img_url}
+								i={i}
+								click={bookmark}
+								download={() =>
+									localDownload(image.img_url, {
+										"img_id": image.id,
+										"creator_id": image.creator_id,
+										"img_url": image.img_url,
+									})
+								}
+							/>
+						))
 					) : (
 						<>
 							{homeImage.map((pic, i) => (
@@ -148,7 +166,7 @@ const HomePage = () => {
 
 export default HomePage;
 
-const GalleryContainer = ({ img, i, click, setPreview }) => (
+const GalleryContainer = ({ img, i, click, setPreview, download }) => (
 	<div className="position-relative gallery-cont" onClick={setPreview}>
 		<div className="text-end position-absolute top-0 left-0 w-100 p-3 pic-meta">
 			<i className="fa-regular fa-heart p-3 bg-white border me-3 round-ter font-500 " role="button" onClick={click}></i>
@@ -159,7 +177,7 @@ const GalleryContainer = ({ img, i, click, setPreview }) => (
 			<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
 				<img src={img} width="100%" alt="" className="d-block me-4" />
 			</div>
-			<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
+			<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button" onClick={download}></i>
 		</div>
 	</div>
 );

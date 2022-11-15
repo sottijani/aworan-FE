@@ -72,7 +72,7 @@ const History = () => {
 												</div>
 											</td>
 											<td>{e.title}</td>
-											<td>Acceted</td>
+											<td>{e.status}</td>
 											<td>{e.category}</td>
 											<td>{e.createdAt.split("T")[0]}</td>
 											<td>

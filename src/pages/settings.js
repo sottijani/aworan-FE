@@ -6,7 +6,7 @@ import assets from "../js/assets";
 import { useCustomeNavigate } from "../js/request";
 
 const Settings = () => {
-	const { token } = useContext(AppContext);
+	const { token, role } = useContext(AppContext);
 	const [tab, setTab] = useState("profile");
 	const [data, setData] = useState({});
 	const [userData, setUserData] = useState({});
@@ -73,33 +73,45 @@ const Settings = () => {
 					<span role="button" onClick={() => changeTab("profile")}>
 						Profile
 					</span>
-					<span role="button" onClick={() => changeTab("bank")}>
-						Bank
-					</span>
+					{role === "creator" ? (
+						<span role="button" onClick={() => changeTab("bank")}>
+							Bank
+						</span>
+					) : (
+						""
+					)}
+
 					<span role="button" onClick={() => changeTab("security")}>
 						Security
 					</span>
 				</div>
 
 				{/* bank details */}
-				{tab === "bank" ? (
-					<div className="container-fluid  content">
-						<div className="row">
-							<button className="col-md-3 round-ter d-flex flex-column justify-content-center align-items-center bank bg-white" data-bs-target="#addBank" data-bs-toggle="modal">
-								<i className="fa-solid fa-building-columns"></i>
-								<span className="py-1">Add bank account </span>
-							</button>
-							<div className="col-md-3 round-ter del-bank border-0 d-flex justify-content-between flex-column">
-								<p className="w-100 text-end text-danger font-400" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button">
-									Delete
-								</p>
-								<p>
-									Jonathan Smith <br />
-									<small>0908 Access Bank</small>
-								</p>
+
+				{role ? (
+					<>
+						{tab === "bank" ? (
+							<div className="container-fluid  content">
+								<div className="row">
+									<button className="col-md-3 round-ter d-flex flex-column justify-content-center align-items-center bank bg-white" data-bs-target="#addBank" data-bs-toggle="modal">
+										<i className="fa-solid fa-building-columns"></i>
+										<span className="py-1">Add bank account </span>
+									</button>
+									<div className="col-md-3 round-ter del-bank border-0 d-flex justify-content-between flex-column">
+										<p className="w-100 text-end text-danger font-400" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button">
+											Delete
+										</p>
+										<p>
+											Jonathan Smith <br />
+											<small>0908 Access Bank</small>
+										</p>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
+						) : (
+							""
+						)}
+					</>
 				) : (
 					""
 				)}

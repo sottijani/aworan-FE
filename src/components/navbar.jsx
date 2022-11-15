@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import AppContext from "../context/appContext.js";
 import assets from "../js/assets.js";
 const Navbar = () => {
-	const { login } = useContext(AppContext);
+	const { role, token } = useContext(AppContext);
+	console.log(role);
 	return (
 		<>
 			<div>
@@ -12,7 +13,7 @@ const Navbar = () => {
 					<div className="ms-auto aworan-nav">
 						<NavLink to="/">Legal</NavLink>
 						<NavLink to="/">FAQ</NavLink>
-						{login ? (
+						{role || token ? (
 							<Fragment>
 								<NavLink to="/dashboard/profile">
 									<img src={assets.avatar} alt="profile button" width="50rem" />
