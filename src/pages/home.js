@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
+import Masonry from "react-masonry-css";
 import { toast } from "react-toastify";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
@@ -12,6 +13,13 @@ const HomePage = () => {
 	const [images, setImages] = useState([]);
 	const { post, get } = useCustomeNavigate();
 	const [data, setData] = useState({});
+
+	const breakPoint = {
+		default: 4,
+		1100: 3,
+		700: 2,
+		500: 1,
+	};
 
 	// const holder = process.env.REACT_APP_CLOUD_ORIGINAL;
 	const getAllImages = async () => {
@@ -35,6 +43,10 @@ const HomePage = () => {
 		else toast(response.message);
 	};
 
+	const setDataObj = (img) => {
+		setPreview(img.img_url);
+		setData({ "img_id": img.id, "img_url": img.img_url });
+	};
 	useEffect(() => {
 		getAllImages();
 	}, []);
@@ -67,48 +79,17 @@ const HomePage = () => {
 				))}
 			</div>
 			<div className="gallery aworan-container my-5" key="gallery">
-				{images.length ? (
-					images.map((image, i) => (
-						<div
-							className="position-relative gallery-cont"
-							onClick={() => {
-								setPreview(image.img_url);
-								console.log({ "img_id": image.id, "img_url": image.img_url });
-								setData({ "img_id": image.id, "img_url": image.img_url });
-							}}
-						>
-							<div className={`text-end position-absolute top-0 left-0 w-100 p-3 pic-meta `}>
-								<i className="fa-regular fa-heart p-3 bg-white border me-3 round-ter font-500 " role="button" onClick={bookmark}></i>
-								<i className="fa-solid fa-plus font-700 p-3 bg-white border round-ter" role="button"></i>
-							</div>
-							<img src={image.img_url} alt={i} loading="lazy" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button" />
-							<div className="d-flex justify-content-between align-items-center position-absolute bottom-0 left-0 w-100 p-3 pic-meta">
-								<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
-									<img src={image.img_url} width="100%" alt="" className="d-block me-4" />
-								</div>
-								<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
-							</div>
-						</div>
-					))
-				) : (
-					<>
-						{homeImage.map((pic, i) => (
-							<div className="position-relative gallery-cont" onClick={() => setPreview(pic)}>
-								<div className="text-end position-absolute top-0 left-0 w-100 p-3 pic-meta">
-									<i className="fa-regular fa-heart p-3 bg-white border me-3 round-ter font-500 " role="button" onClick={bookmark}></i>
-									<i className="fa-solid fa-plus font-700 p-3 bg-white border round-ter" role="button"></i>
-								</div>
-								<img src={pic} alt={i} loading="lazy" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button" />
-								<div className="d-flex justify-content-between align-items-center position-absolute bottom-0 left-0 w-100 p-3 pic-meta">
-									<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
-										<img src={pic} width="100%" alt="" className="d-block me-4" />
-									</div>
-									<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
-								</div>
-							</div>
-						))}
-					</>
-				)}
+				<Masonry breakpointCols={breakPoint} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+					{images.length ? (
+						images.map((image, i) => <GalleryContainer setPreview={() => setDataObj(image)} img={image.img_url} i={i} click={bookmark} />)
+					) : (
+						<>
+							{homeImage.map((pic, i) => (
+								<GalleryContainer setPreview={() => setPreview(pic)} img={pic} i={i} click={bookmark} />
+							))}
+						</>
+					)}
+				</Masonry>
 			</div>
 
 			{/* modal for image preview */}
@@ -127,7 +108,7 @@ const HomePage = () => {
 
 							<div>
 								<button className="border-0 text-white p-3 round-ter d-bg-blue">Buy Photo</button>
-								<i className="fa-regular fa-heart border p-3 mx-3 round-ter" role="button"></i>
+								<i className="fa-regular fa-heart border p-3 mx-3 round-ter" role="button" onClick={bookmark}></i>
 								<i className="fa-solid fa-plus border p-3 round-ter" role="button"></i>
 							</div>
 						</div>
@@ -166,3 +147,19 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+const GalleryContainer = ({ img, i, click, setPreview }) => (
+	<div className="position-relative gallery-cont" onClick={setPreview}>
+		<div className="text-end position-absolute top-0 left-0 w-100 p-3 pic-meta">
+			<i className="fa-regular fa-heart p-3 bg-white border me-3 round-ter font-500 " role="button" onClick={click}></i>
+			<i className="fa-solid fa-plus font-700 p-3 bg-white border round-ter" role="button"></i>
+		</div>
+		<img src={img} alt={i} loading="lazy" data-bs-toggle="modal" data-bs-target="#exampleModal" role="button" />
+		<div className="d-flex justify-content-between align-items-center position-absolute bottom-0 left-0 w-100 p-3 pic-meta">
+			<div className="overflow-hidden" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}>
+				<img src={img} width="100%" alt="" className="d-block me-4" />
+			</div>
+			<i class="fa-solid  fa-arrow-down font-700 p-3 bg-white border round-ter" role="button"></i>
+		</div>
+	</div>
+);
